@@ -1,0 +1,186 @@
+.add-student {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+    gap: 10px 0;
+    max-width: 300px;
+}
+.add-student input,
+.add-student select,
+.add-student button {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 100%;
+    margin-top: 5px;
+    padding: 5px 14px;
+    border: 1px solid #cecece;
+    border-radius: 4px;
+    transition: background-color 0.12s ease-in-out;
+}
+.add-student h3 {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    
+}
+.add-student button {
+    cursor: pointer;
+    padding: 7px;
+    width: 100%;
+}
+.add-student button:hover {
+    background-color: rgb(227, 227, 227);
+}
+
+.students-page .find {
+    max-width: 300px;
+}
+.students-page .find input {
+    border-radius: 4px;
+    border: 1px solid #afafaf;
+    width: 100%;
+    padding: 5px 10px;
+    box-sizing: border-box;
+}
+
+
+
+.student {
+    display: flex;
+    flex-direction: column;
+    gap: 15px 0;
+    align-items: flex-start;
+    max-width: 500px;
+}
+
+.student div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px 0;
+    width: 100%;
+}
+
+.student label {
+    font-weight: 500;
+}
+
+.student input {
+    box-sizing: border-box;
+    border-radius: 2px;
+    border: 1px solid black;
+}
+
+
+
+.students-list a {
+    text-decoration: none;
+    color: black;
+    transition: color 0.12s ease-in-out;
+}
+
+.students-list a:hover {
+    color: rgb(133, 133, 133);
+}
+
+.student .error {
+    color: red;
+}
+
+.student button {
+    padding: 3px 10px;
+    border: 1px solid #cecece;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.12s ease-in-out;
+}
+.student button:hover {
+    background-color: rgb(226, 226, 226);
+}
+
+.editing input, 
+.editing select {
+    border-radius: 4px;
+    border: 1px solid #cecece;
+    width: 100%;
+    padding: 3px 10px;
+}
+
+
+.students-list li {
+    margin-top: 7px;
+}
+
+#grades {
+    margin-top: 4px;
+    margin-bottom: 2px;
+    padding-left: 30px;
+}
+
+
+#grades span{
+    display: block;
+    /* color: rgba(0, 0, 0, 0.712); */
+}
+
+.add-grades-form {
+    display: flex;
+    flex-direction: column;
+    gap: 7px 0;
+    margin-bottom: 10px;
+    align-items: flex-start;
+    margin-left: 5px
+}
+
+
+.student h3 {
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.student .grades {
+    gap: 30px 0;
+    margin-bottom: 20px;
+}
+
+.class-grades h4 {
+    margin: 0;
+}
+.class-grades span {
+    display: block;
+    margin-bottom: 0;
+}
+.class-grades ul {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+.class-grades li {
+    margin-bottom: 8px;
+}
+.class-grades .date {
+    font-size: 14px;
+}
+
+.student .grading {
+    display: block;
+}
+.grading h4 {
+    margin: 0;
+}
+.student .grading select {
+    padding: 0 5px;
+    height: 25px;
+    max-width: 180px;
+    transition: background-color 0.15s ease-in-out;
+    border-radius: 3px;
+}
+.student .grading select:hover {
+    background-color: rgb(236, 236, 236);
+}
+
+.grading .grades-list div {
+    max-width: 300px;
+    display: grid;
+    margin-top: 15px;
+    grid-template-columns: 1fr 1fr;
+}
+
+
