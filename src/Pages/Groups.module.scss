@@ -1,0 +1,53 @@
+.groups {
+    a {
+        text-decoration: none;
+        color: black;
+        transition: color 0.12s ease-in-out;
+
+        &:hover {
+            color: rgb(116, 123, 135);
+        }
+    }
+}
+
+.group {
+    max-width: 300px;
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px 0;
+    
+    .info {
+        a {
+            text-decoration: none;
+            color: black;
+            transition: color 0.12s ease-in-out;
+    
+            &:hover {
+                color: rgb(116, 123, 135);
+            }
+        }
+    
+        display: flex;
+        flex-direction: column;
+        gap: 20px 0;
+        align-items: flex-start;
+      
+    
+        & h2 {
+            margin-bottom: 10px;
+        }
+    
+        & div {
+            display: flex;
+            flex-direction: column;
+            gap: 5px 0;
+            width: 100%;
+        
+            & label {
+                font-weight: 500;
+            }
+    
+        }
+    }
+}

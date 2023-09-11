@@ -9,13 +9,11 @@ const AverageGrades = ({start, end, classes, student, selectValue, addingGrade, 
             let classGrades =  student.grades && student.grades.filter(grade => grade.classId == oneClass.id)
                 return classGrades.map(grade => ({value: grade.value, date: grade.date}))
         }))
-    }, [selectValue, addingGrade, isEditing])
+    }, [selectValue, addingGrade, isEditing]) 
 
     let average = gradesArr && gradesArr.map(gradeObj => {
         let filteredGrades = gradeObj.filter(grade => {
             
-            console.log((new Date(grade.date)).getMonth());
-
             return new Date(grade.date) < new Date(end) && new Date(grade.date) > new Date(start)
         })
 

@@ -1,21 +1,31 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import './Settings.css'
+import './Settings.scss'
 import { ClipLoader } from 'react-spinners'
 import { Link } from 'react-router-dom'
+import TextField from '@mui/material/TextField';
+import IconButton from '@mui/material/IconButton';
+import Stack from '@mui/material/Stack';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import Grid from '@mui/material/Unstable_Grid2'
+import Container from '../components/Container'
+import { Checkbox, FormControlLabel, Paper } from '@mui/material'
+import config from '../config'
+import { Newspaper } from '@mui/icons-material'
+import CityForm from '../components/Cities/CityForm'
+import GroupsList from '../components/Groups/GroupsList'
 
 const Settings = () => {
-    const [cities, setCities] = useState([])
     const [groups, setGroups] = useState([])
     const [classes, setClasses] = useState([])
 
-    const [cityInput, setCityInput] = useState('')
     const [groupInput, setGroupInput] = useState('')
     const [classInput, setClassInput] = useState('')
 
     const [isDeleting, setIsDeleting] = useState(false)
 
-    const [cityIsEditing, setCityIsEditing] = useState(false)
     const [groupIsEditing, setGroupIsEditing] = useState(false)
     const [classIsEditing, setClassIsEditing] = useState(false)
 
@@ -23,83 +33,14 @@ const Settings = () => {
     const [groupIsLoading, setGroupIsLoading] = useState(true)
     const [classIsLoading, setClassIsLoading] = useState(true)
 
+    const [rolesPerm, setRolesPerm] = useState(JSON.parse(localStorage.getItem('data')))
 
-    useEffect(() => {
-        axios.get('http://localhost:3000/cities?_sort=id&_order=desc')
-            .then(response => {
-                if (response.statusText === 'OK') {
-                    setCities(response.data)
-                    setCityIsLoading(false)
-                }
-            })
-    }, [isDeleting])
+    const [userRoles, setUserRoles] = useState([])
+    const [view, setView] = useState(null)
+    const [viewOwn, setViewOwn] = useState(null)
+    const [viewOthers, setViewOthers] = useState(null)
 
-    const deleteCityHandler = (id) => {
-        axios.delete(`http://localhost:3000/cities/${id}`)
-        setIsDeleting(prevState => !prevState)
-    }
-    
-    const editCityHandler = (id, i, e) => {
-        e.preventDefault()
-        fetch(`http://localhost:3000/cities/${id}`, {
-            method: 'PUT',
-            body: JSON.stringify({
-                name: cities[i].name
-            }),
-            headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-            },
-        })
-            .then(response => {
-                if (response.ok) {
-                    setCityIsEditing(false)
-                }
-            })
-    }
 
-    let citiesList = cities.map((city, i) => {
-        return (
-            <li key={city.id}>
-                {cityIsEditing  === city.id ?
-                <form onSubmit={(e) => editCityHandler(city.id, i, e)}>
-                    <input value={cities[i].name} onChange={(e) => setCities(prevState => {
-                        let newState = [...prevState]
-                        newState[i] = {
-                            ...newState[i],
-                            name: e.target.value
-                        }
-                        return newState
-                    })}></input>
-                    <button onClick={() => setCityIsEditing(false)}>Cancel</button>
-                    <button type='submit'>Save</button>
-                </form> :
-                <>
-                    <span>{city.name}</span>
-                    <button onClick={() => deleteCityHandler(city.id)}>X</button>
-                    <button onClick={() => setCityIsEditing(city.id)}>edit</button>
-                </>
-                }
-            </li>
-        )
-    })
-
-    const addCityHandler = (e) => {
-        e.preventDefault()
-        axios.post('http://localhost:3000/cities', {
-            name: cityInput
-        })
-            .then(response => {
-                if (response.status === 201) {
-                    setCityInput('')
-                    setCities(prevState => {
-                        let newState = [...prevState]
-                        newState.unshift(response.data)
-                        return newState
-                    })
-                }
-            })
-        
-    }
 
     useEffect(() => {
         axios.get('http://localhost:3000/groups?_sort=id&_order=desc')
@@ -146,13 +87,19 @@ const Settings = () => {
                         }
                         return newState
                     })}></input>
-                     <button onClick={() => setGroupIsEditing(false)}>Cancel</button>
-                    <button type='submit'>Save</button>
+                    <ButtonGroup variant="outlined" aria-label="small outlined button group" size='small'>
+                        <Button variant='text' type='submit' onClick={() => setGroupIsEditing(false)}>Cancel</Button>
+                        <Button variant='text' color='success' type='submit'>Save</Button>
+                    </ButtonGroup>
                 </form> :
                 <>
                     <span>{group.title}</span>
-                    <button onClick={() => deleteGroupHandler(group.id)}>X</button>
-                    <button onClick={() => setGroupIsEditing(group.id)}>edit</button>
+                    <Stack direction='row' spacing={1}>
+                        <IconButton aria-label="delete" size='small' onClick={() => deleteGroupHandler(group.id)}>
+                            <DeleteIcon fontSize='small'/>
+                        </IconButton>
+                        <Button variant="outlined" size="small" onClick={() => setGroupIsEditing(group.id)}>EDIT</Button>
+                    </Stack>
                 </>
                 }
             </li>
@@ -188,7 +135,6 @@ const Settings = () => {
     const deleteClassHandler = (id) => {
         axios.delete(`http://localhost:3000/classes/${id}`)
             .then(res => {
-                console.log(res);
                 setIsDeleting(prevState => !prevState)
             })
     }
@@ -199,13 +145,11 @@ const Settings = () => {
             name: classes[i].name
         })
             .then(res => {
-                console.log(res);
                 setClassIsEditing(false)
             })
     }
 
 
-    console.log(classes);
     let classesList = classes.map((oneClass, i) => {
         return (
             <li key={oneClass.id}>
@@ -219,16 +163,22 @@ const Settings = () => {
                         }
                         return newState
                     })}></input>
-                    <button onClick={() => setClassIsEditing(false)}>Cancel</button>
-                    <button type='submit'>Save</button>
+                    <ButtonGroup variant="outlined" aria-label="small outlined button group" size='small'>
+                        <Button variant='text' type='submit' onClick={() => setClassIsEditing(false)}>Cancel</Button>
+                        <Button variant='text' color='success' type='submit'>Save</Button>
+                    </ButtonGroup>
                 </form> :
                 <>
                     <span>{oneClass.name}</span>
                     <span className='teacher'> {oneClass.teacher ?
                     <Link to={`/teachers/${oneClass.teacher.id}`}>{oneClass.teacher.name + ' ' + oneClass.teacher.surname}</Link>:
                      'no teacher assigned'}</span>
-                    <button onClick={() => deleteClassHandler(oneClass.id)}>X</button>
-                    <button onClick={() => setClassIsEditing(oneClass.id)}>edit</button>
+                    <Stack direction='row' spacing={1}>
+                        <IconButton aria-label="delete" size='small' onClick={() => deleteClassHandler(oneClass.id)}>
+                            <DeleteIcon fontSize='small'/>
+                        </IconButton>
+                        <Button variant="outlined" size="small" onClick={() => setClassIsEditing(oneClass.id)}>EDIT</Button>
+                    </Stack>
                 </>
                 }
             </li>
@@ -254,48 +204,167 @@ const Settings = () => {
     }
 
 
-    
-  return (
-    <div className='settings'>
-        {groupIsLoading && cityIsLoading ? (
-            <div className='loading-wrapper'>
-                <ClipLoader className='loading' color="#36d7b7" />
-            </div>
-        ) :
-        (
-        <>
-            <form onSubmit={addCityHandler}>
-                <h3>Cities</h3>
-                <h4>Add a city</h4>
-                <input
-                    placeholder='Type a city name...'
-                    value={cityInput} onChange={(e) => setCityInput(e.target.value)}
-                />
-            </form>
-            <ul className='cities'>{citiesList}</ul>
-    
-            <form onSubmit={addGroupHandler}>
-                <h3>Groups</h3>
-                <h4>Add a group</h4>
-                <input
-                    placeholder='Type a group title...'
-                    value={groupInput} onChange={(e) => setGroupInput(e.target.value)}
-                />
-            </form>
-            <ul className='groups'>{groupsList}</ul>
 
-            <form onSubmit={addClassHandler}>
-                <h3>Classes</h3>
-                <h4>Add a class</h4>
-                <input
-                    placeholder='Type a class name...'
-                    value={classInput} onChange={(e) => setClassInput(e.target.value)}
-                />
-            </form>
-            <ul className='classes'>{classesList}</ul>
-        </>
+    useEffect(() => {
+        axios.get(`${config.API_URL}/userRoles`)
+            .then(res => setUserRoles(res.data))
+    }, [])
+
+    const roleHandler = (e, roleId) => {
+        e.preventDefault()
+        let elements = e.target.elements
+
+        {roleId == 1 ? (
+            axios.patch(`${config.API_URL}/rolesPermissions/1`, {
+                grades: {
+                    delete: elements.delete.checked,
+                    edit: elements.edit.checked,
+                    add: elements.add.checked,
+                    view: elements.view.checked
+                }
+            })
+                .then(res => console.log(res.data))
+        ) : (
+            axios.patch(`${config.API_URL}/rolesPermissions/2`, {
+                grades: {
+                    delete: elements.delete.checked,
+                    edit: elements.edit.checked,
+                    add: elements.add.checked,
+                    view: elements.view.checked,
+                    viewOwn: elements.viewOwn.checked
+                }
+            })
+                .then(res => console.log(res.data))
         )}
-    </div>
+    }
+
+    useEffect(() => {
+        axios.get(`${config.API_URL}/rolesPermissions?_expand=userRole`)
+            .then(res => localStorage.setItem('data', JSON.stringify(res.data)))
+
+            setRolesPerm(JSON.parse(localStorage.getItem('data')))
+    }, [])
+
+
+  return (
+    <Container>
+        <div className='settings'>
+            {groupIsLoading && cityIsLoading ? (
+                <div className='loading-wrapper'>
+                    <ClipLoader className='loading' color="#36d7b7" />
+                </div>
+            ) :
+            (
+            <>
+            <Grid container spacing={2}>
+                <Grid xs={12} marginBottom={2}>
+                    <h2>Grades</h2>
+                    {userRoles.map(role => (
+                        <form key={role.id} onSubmit={(e) => roleHandler(e, role.id)}>
+                            <h3>{role.name}</h3>
+                            <Stack direction='row' flexWrap='wrap'>
+                                {role.id === 1 ? (
+                                    <FormControlLabel 
+                                        control={<Checkbox />}
+                                        label='View'
+                                        name='view'
+                                        onChange={(e) => setView(e.target.checked)}
+                                    />
+                                ) : (
+                                    <>
+                                    <FormControlLabel 
+                                        control={<Checkbox />}
+                                        label='View own'
+                                        name='viewOwn'
+                                        onChange={(e) => setViewOwn(e.target.checked)}
+                                        />
+                                    <FormControlLabel 
+                                        control={<Checkbox />}
+                                        label='View other`s'
+                                        name='viewOthers'
+                                        onChange={(e) => setViewOthers(e.target.checked)}
+                                        />
+                                    </>
+                                )}
+                                <FormControlLabel 
+                                    control={<Checkbox />}
+                                    label='Delete'
+                                    name='delete'
+                                    disabled={
+                                        role.id === 1 ? (
+                                            !view && true
+                                        ) : (
+                                            (!viewOwn && !viewOthers) && true
+                                        )
+                                    }
+                                />
+                                <FormControlLabel 
+                                    control={<Checkbox />}
+                                    label='Edit'
+                                    name='edit'
+                                    disabled={
+                                        role.id === 1 ? (
+                                            !view && true
+                                        ) : (
+                                            (!viewOwn && !viewOthers) && true
+                                        )
+                                    }
+                                />
+                                <FormControlLabel 
+                                    control={<Checkbox />}
+                                    label='Add'
+                                    name='add'
+                                    disabled={
+                                        role.id === 1 ? (
+                                            !view && true
+                                        ) : (
+                                            (!viewOwn && !viewOthers) && true
+                                        )
+                                    }
+                                />
+                            </Stack>
+                            <Button type='submit' size='small' variant='contained'>save</Button>
+                        </form>
+                    ))}
+                </Grid>
+                <Grid xs={12} sm={6} md>
+                    <CityForm setCityIsLoading={setCityIsLoading} />
+                </Grid>
+                <Grid xs={12} sm={6} md>
+                    <form onSubmit={addGroupHandler} className='add-form'>
+                        <h3>Groups</h3>
+                        <h4>Add a group</h4>
+                        <TextField
+                            id="standard-size-small"
+                            label="Group title"
+                            variant="standard"
+                            size='small'
+                            value={groupInput}
+                            onChange={(e) => setGroupInput(e.target.value)}
+                        />
+                    </form>
+                    <ul className='groups'>{groupsList}</ul>
+                </Grid>
+                <Grid xs={12} sm={6} md>
+                    <form onSubmit={addClassHandler} className='add-form'>
+                        <h3>Classes</h3>
+                        <h4>Add a class</h4>
+                        <TextField
+                            id="standard-size-small"
+                            label="Class name"
+                            variant="standard"
+                            size='small'
+                            value={classInput}
+                            onChange={(e) => setClassInput(e.target.value)}
+                            />
+                    </form>
+                    <ul className='classes'>{classesList}</ul>
+                </Grid>
+            </Grid>
+            </>
+            )}
+        </div>
+    </Container>
   )
 }
 

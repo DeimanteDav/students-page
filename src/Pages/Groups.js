@@ -1,28 +1,28 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import './Groups.css'
+import styles from './Groups.module.scss'
+import Container from '../components/Container'
+import GroupsList from '../components/Groups/GroupsList'
+import AddGroups from '../components/Groups/AddGroups'
+import useFetchData from '../hooks/useFetchData'
+import config from '../config'
+
 
 const Groups = () => {
-    const [groups, setGroups] = useState([])
+    const [addingGroup, setAddingGroup] = useState(false)
 
-    useEffect(() => {
-        axios.get('http://localhost:3000/groups?_embed=students')
-            .then(response => setGroups(response.data))
-    }, [])
+    let {data: groups, error: groupsError} = useFetchData(`${config.API_URL}/groups?_embed=students&_sort=id&_order=desc`, {}, 'get', [addingGroup])
+
     
   return (
-    <>
-    <h3>Groups</h3>
-    <ul className='groups'>{groups.map(group => {
-        return (
-        <li key={group.id}>
-            <Link to={`/groups/${group.id}`}>{group.title}</Link>
-            <span>{group.students.length} Students</span>
-        </li>
-        )
-    })}</ul>
-    </>
+    <Container>
+      <AddGroups add setAddingGroup={setAddingGroup} />
+      {groups ? (
+        <GroupsList className={styles.groups} groups={groups} header/>
+      ) : (
+        <span>{groupsError}</span>
+      )}
+    </Container>
   )
 }
 

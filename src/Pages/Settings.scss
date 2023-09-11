@@ -1,0 +1,71 @@
+.settings {
+    .loading-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .add-form {
+        h3 {
+            margin-bottom: 10px;
+        }
+        h4 {
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+    }
+    
+    ul {
+        margin-top: 20px;
+        margin-bottom: 50px;
+        max-width: 200px;
+        padding-left: 0;
+
+        li {
+            display: flex;
+            margin-bottom: 15px;
+            justify-content: space-between;
+        }
+
+    }
+
+    .classes {
+        max-width: 250px;
+        
+        li {
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            grid-template-columns: 1fr 1fr;
+
+            .edit-form {
+                grid-column: 1 / 3;
+                grid-row: 1 / 3;
+            }
+            
+            div {
+                grid-row: 1 / 3;
+                align-items: center;
+            }
+
+            .teacher {
+                grid-column: 1 / 3;
+                grid-row: 2;
+                color: rgb(80, 80, 80);
+
+                a {
+                    text-decoration: none;
+                    color: rgb(80, 80, 80);
+                    transition: color 0.1s ease-in;
+
+                    &:hover {
+                        color: rgb(0, 0, 177);
+                    }
+                }
+            }
+        }
+        
+    }
+
+    
+
+}

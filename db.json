@@ -2,49 +2,89 @@
   "groups": [
     {
       "id": 1,
-      "title": "Group 1"
+      "title": "Group 1",
+      "teacherId": 1,
+      "schoolId": 11
     },
     {
       "id": 2,
-      "title": "Group 2"
+      "title": "Group 2",
+      "teacherId": 1,
+      "schoolId": 11
     },
     {
       "title": "Group 3",
+      "teacherId": 2,
+      "schoolId": 12,
       "id": 3
     },
     {
       "title": "Group 4",
+      "teacherId": 2,
+      "schoolId": 11,
       "id": 4
+    },
+    {
+      "title": "Group 5",
+      "teacherId": 3,
+      "schoolId": 4,
+      "id": 5
     }
   ],
   "students": [
     {
-      "name": "Jonas",
-      "surname": "Pavardenis",
+      "name": "jonas",
+      "surname": "pavardenis",
       "cityId": 1,
+      "schoolId": 11,
       "groupId": 3,
-      "id": 1
+      "userId": 3,
+      "code": null,
+      "id": 2
     },
     {
-      "name": "deimante",
-      "surname": "Pavarde 1",
+      "name": "Lukas",
+      "surname": "pavardenis",
       "cityId": 1,
+      "schoolId": 12,
       "groupId": 1,
+      "code": null,
       "id": 3
     },
     {
-      "name": "Vardas 1",
-      "surname": "Pavardee",
-      "cityId": 4,
-      "groupId": 3,
-      "id": 4
+      "name": "Marija",
+      "surname": "P",
+      "cityId": 3,
+      "schoolId": 3,
+      "groupId": 2,
+      "code": null,
+      "id": 5,
+      "userId": 7
     },
     {
-      "name": "Vardas 1",
-      "surname": "Pavarde 1",
-      "cityId": 3,
+      "name": "mokinys",
+      "surname": "pavardee",
+      "cityId": 4,
+      "schoolId": 4,
       "groupId": 2,
-      "id": 5
+      "code": "wnOoj!amKW",
+      "id": 6
+    },
+    {
+      "name": "dddd",
+      "surname": "Pavarde",
+      "groupId": 1,
+      "cityId": 1,
+      "schoolId": 15,
+      "id": 7
+    },
+    {
+      "name": "Studentas",
+      "surname": "",
+      "groupId": 3,
+      "cityId": 4,
+      "schoolId": 4,
+      "id": 8
     }
   ],
   "cities": [
@@ -53,207 +93,200 @@
       "id": 1
     },
     {
-      "name": "Vilnius",
-      "id": 2
-    },
-    {
       "name": "Nida",
       "id": 3
     },
     {
-      "name": "Klaipeda",
+      "name": "Kaunas",
       "id": 4
+    },
+    {
+      "name": "Vilniu",
+      "id": 5
     }
   ],
-  "grades": [
-    {
-      "id": 1,
-      "studentId": 1,
-      "classId": 2,
-      "date": "2023-06-09T09:20:58.038Z",
-      "updatedDate": null,
-      "value": 10
-    },
-    {
-      "id": 4,
-      "studentId": 1,
-      "classId": 1,
-      "date": "2023-06-09T09:20:58.040Z",
-      "updatedDate": null,
-      "value": 4
-    },
-    {
-      "id": 6,
-      "studentId": 1,
-      "classId": 2,
-      "date": "2023-06-09T09:21:20.423Z",
-      "updatedDate": null,
-      "value": 4
-    },
-    {
-      "id": 7,
-      "studentId": 1,
-      "classId": 3,
-      "date": "2022-12-09T09:22:10.790Z",
-      "updatedDate": null,
-      "value": 10
-    },
-    {
-      "id": 8,
-      "studentId": 1,
-      "classId": 2,
-      "date": "2023-06-09T09:23:16.488Z",
-      "updatedDate": null,
-      "value": 9
-    },
-    {
-      "id": 9,
-      "studentId": 1,
-      "classId": 3,
-      "date": "2023-06-09T09:37:00.318Z",
-      "updatedDate": null,
-      "value": 10
-    },
-    {
-      "studentId": 3,
-      "classId": 2,
-      "date": "2023-06-12T13:52:13.349Z",
-      "value": 10,
-      "id": 10
-    },
-    {
-      "id": 11,
-      "studentId": 4,
-      "classId": 2,
-      "date": "2023-06-13T14:03:09.477Z",
-      "updatedDate": "2023-06-15T13:25:30.616Z",
-      "value": 5
-    },
-    {
-      "id": 14,
-      "studentId": 4,
-      "classId": 1,
-      "date": "2023-06-13T14:14:41.211Z",
-      "updatedDate": "2023-06-15T13:25:30.617Z",
-      "value": 7
-    },
-    {
-      "id": 16,
-      "studentId": 4,
-      "classId": 1,
-      "date": "2023-06-13T14:20:50.295Z",
-      "updatedDate": "2023-06-15T13:25:30.617Z",
-      "value": 10
-    },
-    {
-      "id": 17,
-      "studentId": 4,
-      "classId": 2,
-      "date": "2023-06-13T14:21:28.392Z",
-      "updatedDate": "2023-06-15T13:25:30.618Z",
-      "value": 10
-    },
-    {
-      "studentId": 5,
-      "classId": 2,
-      "date": "2023-06-15T12:12:09.285Z",
-      "value": 2,
-      "updatedDate": null,
-      "id": 27
-    },
-    {
-      "studentId": 5,
-      "classId": 3,
-      "date": "2023-06-15T12:12:37.551Z",
-      "value": 10,
-      "updatedDate": null,
-      "id": 28
-    },
-    {
-      "studentId": 5,
-      "classId": 3,
-      "date": "2023-06-15T12:12:42.264Z",
-      "value": 10,
-      "updatedDate": null,
-      "id": 29
-    },
-    {
-      "studentId": 5,
-      "classId": 3,
-      "date": "2023-06-15T12:12:44.929Z",
-      "value": 2,
-      "updatedDate": null,
-      "id": 30
-    },
-    {
-      "studentId": 5,
-      "classId": 3,
-      "date": "2023-06-15T12:13:01.794Z",
-      "value": 3,
-      "updatedDate": null,
-      "id": 31
-    },
-    {
-      "id": 32,
-      "studentId": 4,
-      "classId": 1,
-      "date": "2023-06-15T13:04:25.834Z",
-      "updatedDate": "2023-06-15T13:25:30.619Z",
-      "value": 9
-    },
-    {
-      "studentId": 4,
-      "classId": 3,
-      "date": "2023-06-15T13:24:39.251Z",
-      "value": 8,
-      "updatedDate": "2023-06-15T13:25:30.620Z",
-      "id": 33
-    }
-  ],
+  "gradesGroup": [],
+  "grades": [],
   "classes": [
     {
-      "id": 1,
-      "name": "Informatics",
-      "teacherId": 1
+      "name": "Matematika",
+      "teacherId": "",
+      "id": 1
     },
     {
-      "id": 2,
-      "name": "Geography",
-      "teacherId": 2
-    },
-    {
-      "id": 3,
-      "name": "Math",
-      "teacherId": 3
+      "name": "Lietuviu kalba",
+      "teacherId": "",
+      "id": 2
     }
   ],
   "teachers": [
     {
-      "name": "Elvyraa",
-      "surname": "Pavardenee",
-      "date": "2000-09-02",
-      "classId": 2,
+      "name": "Mokytojas",
+      "surname": "Pavarde",
+      "date": "2006-02-23",
+      "schoolId": 11,
+      "profile": "",
+      "userId": 1,
       "id": 1
     },
     {
-      "name": "Anelee",
-      "surname": "Pavardee",
-      "date": "1965-09-02",
-      "classId": 2,
+      "name": "Vardas",
+      "surname": "Pavarde",
+      "date": "1990-02-01",
+      "schoolId": 11,
+      "profile": "",
       "id": 2
     },
     {
-      "name": "Vardas 1",
-      "surname": "pavarder",
-      "date": "1978-09-07",
-      "classId": 2,
+      "name": "Auguste",
+      "surname": "Pavarde",
+      "date": "1991-02-01",
+      "schoolId": 11,
+      "profile": "",
+      "id": 3
+    }
+  ],
+  "schools": [
+    {
+      "id": 3,
+      "name": "Ąžuolynas",
+      "cityId": 3,
+      "image": "https://www.greatschools.org/gk/wp-content/uploads/2014/03/The-school-visit-what-to-look-for-what-to-ask-1.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Ąžuolynas",
+      "cityId": 4,
+      "image": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Svento_Kristoforo_vidurine_mokykla.JPG"
+    },
+    {
+      "name": "Mokykla",
+      "cityId": 3,
+      "id": 6,
+      "image": "https://s1.15min.lt/static/cache/OTcweDU4MCw5OTh4NzEyLDYxNjIwOSxvcmlnaW5hbCwsaWQ9MjU4NzcwNSZkYXRlPTIwMTYlMkYxMSUyRjIyLDE2NTYxMDEyMjg=/sv-kristoforo-gimnazija-58342d63dbab5.jpg"
+    },
+    {
+      "name": "Versme",
+      "cityId": 5,
+      "id": 8,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_J0OTurxf6yxap8h1cGse9MBm4g8lXEpzvzYHTZkNQDscCk7Ea9iFzkBv_UQv1TOyKOI&usqp=CAU"
+    },
+    {
+      "name": "Mokykla",
+      "cityId": 5,
+      "id": 9
+    },
+    {
+      "name": "mokyyklaa",
+      "cityId": 1,
+      "id": 11,
+      "image": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Svento_Kristoforo_vidurine_mokykla.JPG"
+    },
+    {
+      "name": "\"Versme\"",
+      "cityId": 1,
+      "id": 12
+    },
+    {
+      "name": "mokyklos pav",
+      "cityId": 3,
+      "id": 13
+    },
+    {
+      "name": "nidaa",
+      "cityId": 3,
+      "id": 14
+    },
+    {
+      "name": "elektrenu mok",
+      "cityId": 1,
+      "id": 15
+    }
+  ],
+  "users": [
+    {
+      "username": "Mokytojas",
+      "password": "mokytojas123",
+      "email": "mokytojas@gmail.com",
+      "userRoleId": 1,
+      "id": 1
+    },
+    {
+      "username": "Vardas",
+      "password": "vardas987",
+      "email": "vardas@gmail.com",
+      "userRoleId": 1,
+      "id": 2
+    },
+    {
+      "username": "jonas",
+      "password": "jonas123",
+      "email": "jonas@gmail.com",
+      "userRoleId": 2,
       "id": 3
     },
     {
-      "name": "Vardas 1",
-      "surname": "Pavarde 1",
-      "date": "1998-10-29",
+      "username": "Auguste",
+      "password": "auguste777",
+      "email": "auguste@gmail.com",
+      "userRoleId": 1,
       "id": 4
+    },
+    {
+      "username": "mokinys",
+      "password": "mok123",
+      "email": "mok@gmail.com",
+      "userRoleId": 2,
+      "id": 5
+    },
+    {
+      "username": "mokinys",
+      "password": "mok123",
+      "email": "mok@gmail.com",
+      "userRoleId": 2,
+      "id": 6
+    },
+    {
+      "username": "Marija",
+      "password": "marija123",
+      "email": "marija@gmail.com",
+      "userRoleId": 2,
+      "id": 7
+    }
+  ],
+  "userRoles": [
+    {
+      "id": 1,
+      "name": "administrative",
+      "capabilities": true
+    },
+    {
+      "id": 2,
+      "name": "user",
+      "capabilities": false
+    }
+  ],
+  "rolesPermissions": [
+    {
+      "id": 1,
+      "userRoleId": 1,
+      "grades": {
+        "delete": false,
+        "edit": false,
+        "add": true,
+        "view": true
+      }
+    },
+    {
+      "id": 2,
+      "userRoleId": 2,
+      "grades": {
+        "delete": true,
+        "edit": false,
+        "add": false,
+        "view": true,
+        "viewOwn": true
+      }
     }
   ]
 }

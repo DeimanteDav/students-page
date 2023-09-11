@@ -1,16 +1,17 @@
+import { Grid } from '@mui/material'
 import React from 'react'
 
 const ClassGrades = ({classGrades, oneClass, gradeInput, setGradeInput, onAddGrade, isEditing, setStudent, onDelete}) => {
-    // console.log(classGrades);
-    // console.log(oneClass);
+    
   return (
     <div className='class-grades'>
         <h4>{oneClass.name}</h4>
+
         {classGrades && classGrades.length > 0 ? <ul>
+
             {classGrades.map((grade, i) => {
                 let date = new Date(grade.date)
                 let updatedDate = new Date(grade.updatedDate)
-                console.log(isEditing);
                 return (
                 <>
                     {isEditing ?
@@ -40,19 +41,20 @@ const ClassGrades = ({classGrades, oneClass, gradeInput, setGradeInput, onAddGra
             })}
         </ul> : <span>No grades</span>}
 
-        {!isEditing && <form onSubmit={(e) => onAddGrade(oneClass.id, e)} className='add-grades-form'>
-            <label htmlFor='add-grades'>Add a grade</label>
-            <input
-                type='number'
-                id='add-grades'
-                max={10}
-                min={1}
-                value={gradeInput.name === oneClass.name && gradeInput.value}
-                onChange={(e) => setGradeInput({name: oneClass.name, value:e.target.value})}
-            />
-        </form>}
-
-      
+        {!isEditing &&
+            <form onSubmit={(e) => onAddGrade(oneClass.id, e)} className='add-grades-form'>
+                <label htmlFor='add-grades'>Add a grade</label>
+                <input
+                    type='number'
+                    id='add-grades'
+                    max={10}
+                    min={1}
+                    value={gradeInput.name === oneClass.name && gradeInput.value}
+                    onChange={(e) => setGradeInput({name: oneClass.name, value:e.target.value})}
+                />
+                <button type='submit'>add</button>
+            </form>
+        }
     </div>
   )
 }

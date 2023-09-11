@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import './Students.css'
-import AddStudent from '../components/AddStudent'
+import AddStudent from '../components/Students/AddStudent'
 import { Link } from 'react-router-dom'
 import config from '../config'
+import StudentsList from '../components/Students/StudentsList'
+import Container from '../components/Container'
 
 const StudentsPage = () => {
   const [students, setStudents] = useState([])
 
   const [search, setSearch] = useState('')
   const [foundStudents, setFoundStudents] = useState([])
+
+  const [timer, setTimer] = useState(null)
 
 
   useEffect(() => {
@@ -20,34 +24,39 @@ const StudentsPage = () => {
 
   function searchHandler(e) {
     setSearch(e.target.value)
-    axios.get(`${config.API_URL}/students?q=${search}`)
-      .then(response => setFoundStudents(response.data))
-      .catch((e) => console.log(e))
+
+    if (timer) {
+      clearTimeout(timer)
+      setTimer(null)
+    }
+    setTimer(
+      setTimeout(() => {
+        axios.get(`${config.API_URL}/students?q=${search}`)
+          .then(response => {
+            setFoundStudents(response.data)
+          })
+          .catch((e) => console.log(e))
+      }, 1000)
+    )
   }
 
-  let studentsList = (search ? foundStudents : students).map(student => {
-    return (
-      <li key={student.id}>
-        <Link to={`/students/${student.id}`}>{student.name} {student.surname}</Link>
-      </li>
-    ) 
-  })
-
-
   return (
-    <div className='students-page'>
-      <h1>Students</h1>
-      <AddStudent setStudents={setStudents}/>
-      
-      <div className='find'>
-        <input
-          placeholder='Find students'
-          value={search}
-          onInput={searchHandler}
-        />
+    <Container>
+      <div className='students-page'>
+        <h1>Students</h1>
+        <AddStudent add setStudents={setStudents}/>
+        
+        <div className='find'>
+          <input
+            placeholder='Find students'
+            value={search}
+            onInput={searchHandler}
+          />
+        </div>
+        
+        <StudentsList students={search ? foundStudents : students}></StudentsList>
       </div>
-      <ul className='students-list'>{studentsList}</ul>
-    </div>
+    </Container>
   )
 }
 

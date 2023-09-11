@@ -1,26 +1,91 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { redirect, useParams } from 'react-router-dom'
+import { Link, redirect, useNavigate, useParams } from 'react-router-dom'
 import config from '../config.js'
+import { styled } from 'styled-components'
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Stack from '@mui/material/Stack';
+import { Autocomplete, Avatar, Button, ButtonGroup, IconButton, TextField } from '@mui/material'
+import DeleteIcon from '@mui/icons-material/Delete';
+import Container from '../components/Container.js'
+import AddClasses from '../components/Teachers/AddClasses.js'
+import ButtonsGroup from '../components/Buttons/ButtonsGroup.js'
+import EditButtonsGroup from '../components/Buttons/EditButtonsGroup.js'
+import TeacherForm from '../components/Teachers/TeacherForm.js'
+import AddTeacher from '../components/Teachers/AddTeacher.js'
+
+
+
+
+const EditingStyle = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 20px 0;
+  align-items: flex-start;
+  max-width: 300px;
+
+  & .info {
+      width: 100%;
+    }
+
+  & h2 {
+    margin-bottom: 4px;
+    margin-top: 10px;
+  }
+  & h4 {
+    margin: 5px 0;
+  }
+  
+  & .class {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 5px;
+  }
+
+  & button:not(.MuiButtonBase-root) {
+    padding: 3px 10px;
+    border: 1px solid #cecece;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.12s ease-in-out;
+    & button:hover {
+        background-color: rgb(226, 226, 226);
+    }
+  }
+`
+
+
 
 const Teacher = () => {
   let {teacherId} = useParams()
   const [teacher, setTeacher] = useState({})
 
   const [allClasses, setAllClasses] = useState([])
+  const [profile, setProfile] = useState('')
 
   const [isEditing, setIsEditing] = useState(false)
   const [classDeleting, setClassDeleting] = useState(false)
   const [addingClass, setAddingClass] = useState(false)
 
-  const [selectedClass, setSelectedClass] = useState('default')
+
+  const [school, setSchool] = useState(null)
+  const [schoolsOptions, setSchoolsOptions] = useState([])
+
+  
+  useEffect(() => {
+    axios.get(`${config.API_URL}/teachers/${teacherId}?_embed=classes&_expand=school`)
+    .then(res => setTeacher(res.data))
+  }, [teacherId, classDeleting, addingClass, isEditing])
+  
 
   useEffect(() => {
-    axios.get(`${config.API_URL}/teachers/${teacherId}?_embed=classes`)
-      .then(res => setTeacher(res.data))
-  }, [teacherId, classDeleting, addingClass])
-
-
+     axios.get(`${config.API_URL}/schools?_expand=city`)
+       .then(res => setSchoolsOptions(res.data))
+   }, [])
+  
   useEffect(() => {
     axios.get(`${config.API_URL}/classes`)
     .then(res => {
@@ -31,41 +96,42 @@ const Teacher = () => {
         setAllClasses(filteredClasses)
       }
     })
-  }, [teacherId, addingClass])
+  }, [teacherId, addingClass, deleteClassHandler])
 
+  const randomProfileHandler = (e) => {
+    e.preventDefault()
+    axios.get('https://randomuser.me/api/')
+      .then(response => {
+        setProfile(response.data.results[0].picture);
+      })
+  }
 
-  const deleteClassHandler = (id, e) => {
+  const deleteProfileHandler = () => {
+    axios.patch(`${config.API_URL}/teachers/${teacherId}`, {
+      profile: ''
+    })
+      .then(res => {
+        if (res.status === 200) {
+            setTeacher(prevState => {
+              let newState = {...prevState}
+              return {...newState, profile: ''}
+            })
+        }
+      })
+  }
+
+  function deleteClassHandler(id, e) {
     e.preventDefault()
     axios.patch(`${config.API_URL}/classes/${id}`, {
       teacherId: ""
     })
-    .then(res => {
-      console.log(res);
-      if (res.status === 200) {
-          setClassDeleting(prevState => !prevState)
-      }
-    })
-  }
-console.log(selectedClass)
-
-  const addClassHandler = (e) => {
-    e.preventDefault()
-    
-    axios.patch(`${config.API_URL}/classes/${selectedClass}`, {
-      teacherId: Number(teacherId)
-    })
-      .then(response => {
-        if (response.status === 200) {
-          setSelectedClass('default')
-          setAddingClass(prevState => !prevState)
-          setTeacher(prevState => {
-              return {...prevState, classes: [...prevState.classes, response.data]}
-          })
+      .then(res => {
+        if (res.status === 200) {
+            setClassDeleting(prevState => !prevState)
         }
       })
   }
-  console.log(new Date());
-  console.log(new Date(teacher.date));
+
 
   const editTeacherHandler = (e) => {
     e.preventDefault()
@@ -74,136 +140,111 @@ console.log(selectedClass)
       name: teacher.name,
       surname: teacher.surname,
       date: teacher.date,
+      profile: profile ? profile.large : teacher.profile,
+      schoolId: school ? school.id : '',
       id: Number(teacherId),
     })
       .then(response => {
         if (response.status === 200) {
           setIsEditing(false)
+          if (profile) {
+            setTeacher(prevState => {
+              let newState = {...prevState}
+              return {...newState, profile: profile.large}
+            })
+            setProfile('')
+          }
         }
       })
 
   }
-
-  const deleteTeacherHandler = () => {
-    axios.delete(`${config.API_URL}/teachers/${teacherId}`)
-    .then(response => {
-      if (response.statusText === 'OK') {
-          return redirect('/')
-      }
-  })
-  }
-
-  const age = (date) => {
-    let today = new Date();
-    let birthDate = new Date(date)
-    let age = today.getFullYear() - birthDate.getFullYear() -
-            (today.getMonth() < birthDate.getMonth() || 
-            (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate()));
-    return age;
-  }
+  
 
   return (
-    <>
-    <h2>Teacher info</h2>
-    {isEditing ?
-      <form className='teacher editing-teacher' onSubmit={editTeacherHandler}>
-        <div>
-          <label htmlFor='name'>First Name</label>
-          <input
-            id='name'
-            type='text'
+    <Container>
+      {isEditing ? (
+        <>
+        {/* <EditingStyle onSubmit={editTeacherHandler}>
+          <h2>Teacher info</h2>
+          
+          {profile ? 
+          <Stack direction='row' alignItems='center' spacing={2} width='100%'>
+            <img style={{width: '50%'}} src={profile.large}></img> 
+            <IconButton aria-label="delete" variant size='small' onClick={deleteProfileHandler}>
+              <DeleteIcon fontSize='small'/>
+            </IconButton>
+          </Stack>
+          
+          :
+          <Stack direction='row' alignItems='center' spacing={2} width='100%'>
+          {teacher.profile ?
+            <>
+              <img style={{width: '50%'}}  src={teacher.profile}></img> 
+              <IconButton aria-label="delete" variant size='small' onClick={deleteProfileHandler}>
+                <DeleteIcon fontSize='small'/>
+              </IconButton>
+            </>
+          : <Avatar sx={{width: '50%', height: '50%', aspectRatio: 1 / 1}} variant='rounded'/>}
+          </Stack>}
+          <Button onClick={randomProfileHandler}>random img</Button>
+
+          <TextField
+            label='First Name'
+            size='small'
+            className='info'
             value={teacher.name}
             onChange={(e) => setTeacher(prevState => ({...prevState, name: e.target.value}))}
           />
-        </div>
-        
-        <div>
-          <label htmlFor='surname'>Last Name</label>
-          <input
-            id='surname'
-            type='text'
+
+          <TextField
+            label='Last Name'
+            size='small'
+            className='info'
             value={teacher.surname}
             onChange={(e) => setTeacher(prevState => ({...prevState, surname: e.target.value}))}
           />
-        </div>
-        
-        <div>
-          <label htmlFor='date'>Date</label>
-          <input
-            id='date'
+
+          <TextField
+            size='small'
             type='date'
+            className='info'
             value={teacher.date}
             onChange={(e) => setTeacher(prevState => ({...prevState, date: e.target.value}))}
           />
-        </div>
 
-        <div>
-          <h4>Classes:</h4>
-          {teacher.classes.map((oneClass, i) => {
-            return (
-            <div className='classes-editing' key={oneClass.id}>
-              <input
-                type='text'
-                value={oneClass.name}
-                onChange={(e) => setTeacher(prevState => {
-                  let newState = {...prevState}
-                  newState.classes[i].name = e.target.value
-                  return newState
-                })}
-              />
-              <button type='button' onClick={(e) => deleteClassHandler(oneClass.id, e)}>X</button>
-            </div>
-            )
-          })}
-        </div>
-        <button type='submit'>Save</button>
-      </form> :
-
-    
-    <div className='teacher'>
-      <div>
-        <label htmlFor='name'>First Name</label>
-        <span id='name'>{teacher.name}</span>
-      </div>
-
-      <div>
-        <label htmlFor='surname'>Last Name</label>
-        <span id='surname'> {teacher.surname}</span>
-      </div>
-
-      <div>
-        <label htmlFor='age'>Age</label>
-        <span id='age'>{age(teacher.date)}</span>
-      </div>
-
-      <h4>Classes:</h4>
-      <ul className='classes'>
-        {teacher.classes && teacher.classes.map(oneClass => {
-        return <li key={oneClass.id}>{oneClass.name}</li>
-      })}
-      </ul>
-
-      <form onSubmit={addClassHandler} className='add-classes-form'>
-            <label htmlFor='add-classes'>Add Classes</label>
-
-            <select 
-              id='add-classes'
-              value={selectedClass}
-              onChange={(e) => setSelectedClass(e.target.value)}
-            >
-              <option value='default' disabled>Select a class</option>
-              {allClasses.map(oneClass => {
-                return <option key={oneClass.id} value={oneClass.id}>{oneClass.name}</option>
-              })}
-            </select>
-
-            <button type='submit'>ADD</button>
-        </form>
-
-      <button onClick={() => setIsEditing(true)}>Edit</button>
-      <button onClick={deleteTeacherHandler}>Delete</button>
-    </div>}
-    </>
+          <Autocomplete
+            size='small'
+            options={schoolsOptions.sort((a, b) => -b.city.name.localeCompare(a.city.name))}
+            groupBy={(option) => option.city.name}
+            value={school}
+            onChange={(event, value) => setSchool(value)}
+            getOptionLabel={(option) => option.name}
+            renderInput={(params) => <TextField {...params} label="School" variant="outlined" />}
+          />
+          
+          <EditButtonsGroup
+            margin
+            cancelClickHandler={(() => setIsEditing(false))}
+          />
+        </EditingStyle>  */}
+        <AddTeacher
+          edit
+          setTeacher={setTeacher}
+          teacher={teacher}
+          setIsEditing={setIsEditing}
+        />
+        </>
+      ) : (
+        <TeacherForm
+          teacher={teacher}
+          setIsEditing={setIsEditing}
+          allClasses={allClasses}
+          teacherId={teacherId}
+          setTeacher={setTeacher}
+          deleteClassHandler={deleteClassHandler}
+        />
+      )}
+    </Container>
 
   )
 }
