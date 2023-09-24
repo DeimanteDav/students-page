@@ -26,10 +26,6 @@ const AddStudent = ({setStudents, add = false, edit = false, studentId, setIsEdi
 
 
   let {data: schoolsOption, error: schoolsOptError} = useFetchData(`${config.API_URL}/cities/${city}?_embed=schools`, {}, 'get', [city])
-  console.log(name);
-  console.log(groupsOption);
-  console.log(citiesOption);
-  console.log(schoolsOption);
 
   function addStudentHandler(e) {
     e.preventDefault()

@@ -10,7 +10,6 @@ import useLocalStorage from '../../hooks/useLocalStorage';
 const AddSchool = ({ school, setIsEditing, setIsAddingSchool, edit = false, add = false, schoolId}) => {
     const [name, setName] = useLocalStorage('school-name', (school ? school.name : ''))
     const [city, setCity] = useLocalStorage('school-city', (school ? school.city.id : ''))
-console.log(school);
     const [image, setImage] = useLocalStorage('school-image', (school ? school.image : ''))
     const [isImgDeleted, setIsImgDeleted] = useState(null)
 

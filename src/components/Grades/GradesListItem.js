@@ -2,8 +2,6 @@ import { TableCell, TableRow, Tooltip } from '@mui/material'
 import React from 'react'
 
 const GradesListItem = ({rows}) => {
-    console.log(rows);
-   
   return (
     rows.map((row) => (
         <TableRow
