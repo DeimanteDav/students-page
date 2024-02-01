@@ -79,17 +79,6 @@ const AddStudent = ({setStudents, add = false, edit = false, studentId, setIsEdi
               localStorage.setItem('student-school', null)
             }
         })
-
-    // student.grades.forEach(grade => {
-    //     axios.patch(`${config.API_URL}/grades/${grade.id}`, {
-    //         updatedDate: new Date(),
-    //     })
-    //         .then(res => {
-    //             if (res.ok) {
-    //                 setIsEditing(false)
-    //             }
-    //         })
-    // })
   }
   
   
@@ -119,11 +108,6 @@ const AddStudent = ({setStudents, add = false, edit = false, studentId, setIsEdi
             label='Group'
             onChange={(e) => setGroup(e.target.value)}
           >
-            {/* {groupsOption && (
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-            )} */}
             {groupsOption ? (
               groupsOption.map(group => {
                 return <MenuItem key={group.id} value={group.id}>{group.title}</MenuItem>
@@ -141,11 +125,6 @@ const AddStudent = ({setStudents, add = false, edit = false, studentId, setIsEdi
             label='City'
             onChange={(e) => setCity(e.target.value)}
           >
-            {/* {citiesOption && (
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-            )} */}
             {citiesOption ? (
               citiesOption.map(city => {
                 return <MenuItem key={city.id} value={city.id}>{city.name}</MenuItem>
@@ -164,11 +143,6 @@ const AddStudent = ({setStudents, add = false, edit = false, studentId, setIsEdi
               label='School'
               onChange={(e) => setSchool(e.target.value)}
             >
-              {/* {schoolsOption && (
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-              )} */}
               {schoolsOption.schools ? (
                   schoolsOption.schools.map(school => {
                     return <MenuItem key={school.id} value={school.id}>{school.name}</MenuItem>

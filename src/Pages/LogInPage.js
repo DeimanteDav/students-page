@@ -15,9 +15,10 @@ const LogInPage = () => {
 
     
     let navigate = useNavigate()
-
     const logInHandler = (e) => {
         e.preventDefault()
+        console.log(username);
+        console.log(password);
         setError(false)
 
         axios.get(`${config.API_URL}/users?${(username.includes('@') ? `gmail=${username}` : `username=${username}`)}&password=${password}&_expand=userRole`)
@@ -36,6 +37,7 @@ const LogInPage = () => {
                     setPassword('')
                 }
             })
+            .catch(err => console.error(err))
     }
 
   return (
