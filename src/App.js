@@ -96,7 +96,7 @@ function App() {
             </AppBar>
           </Box>
 
-            <div style={{ marginTop: '64px' }}>
+            <div style={{ marginTop: '80px' }}>
               <Routes>
                 <Route path='/' element={<StudentsPage/>}/>
                 <Route path='/students/:studentId' element={<Student loggedInStudentId={loggedInStudentId} permissions={rolesPermissions && rolesPermissions.grades} />}/>

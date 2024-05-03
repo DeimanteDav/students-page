@@ -1,11 +1,11 @@
-import React from 'react'
-import ButtonsGroup from '../Buttons/ButtonsGroup'
-import { styled } from 'styled-components'
-import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import config from '../../config'
-import SchoolInfo from './SchoolInfo'
-import { Grid } from '@mui/material'
+import React from "react";
+import ButtonsGroup from "../Buttons/ButtonsGroup";
+import { styled } from "styled-components";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import config from "../../config";
+import SchoolInfo from "./SchoolInfo";
+import { Grid } from "@mui/material";
 
 const Style = styled.div`
   max-width: 500px;
@@ -23,35 +23,33 @@ const Style = styled.div`
     width: 100%;
     height: auto;
   }
-`
+`;
 
+const SchoolForm = ({ setIsEditing, school }) => {
+  let navigate = useNavigate();
 
-const SchoolForm = ({setIsEditing, school}) => {
-    let navigate = useNavigate()
-
-    const deleteSchoolHandler = () => {
-      axios.delete(`${config.API_URL}/schools/${school.id}`)
-        .then(response => {
-          if (response.statusText === 'OK') {
-            return navigate('/schools')
-          }
-        })
-    }
+  const deleteSchoolHandler = () => {
+    axios.delete(`${config.API_URL}/schools/${school.id}`).then((response) => {
+      if (response.statusText === "OK") {
+        return navigate("/schools");
+      }
+    });
+  };
 
   return (
     <Style>
       <Grid container mt={5} mb={4} gap={2}>
-          <SchoolInfo school={school} />
+        <SchoolInfo school={school} />
 
-          <Grid xs={12}>
-              <ButtonsGroup
-                  deleteClickHandler={deleteSchoolHandler}
-                  editClickHandler={(() => setIsEditing(true))}
-              />
-          </Grid>
+        <Grid item xs={12}>
+          <ButtonsGroup
+            deleteClickHandler={deleteSchoolHandler}
+            editClickHandler={() => setIsEditing(true)}
+          />
+        </Grid>
       </Grid>
-    </Style> 
-  )
-}
+    </Style>
+  );
+};
 
-export default SchoolForm
+export default SchoolForm;

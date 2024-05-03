@@ -1,5 +1,4 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styles from './Groups.module.scss'
 import Container from '../components/Container'
 import GroupsList from '../components/Groups/GroupsList'
@@ -11,7 +10,7 @@ import config from '../config'
 const Groups = () => {
     const [addingGroup, setAddingGroup] = useState(false)
 
-    let {data: groups, error: groupsError} = useFetchData(`${config.API_URL}/groups?_embed=students&_sort=id&_order=desc`, {}, 'get', [addingGroup])
+    let {data: groups, error: groupsError} = useFetchData(`${config.API_URL}/groups?_embed=students&_sort=id&_order=desc`, 'get', [addingGroup])
 
     
   return (

@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 
-export default function useFetchData(url, params = {}, method = 'get', dependencies = []) {
+export default function useFetchData(url, method = 'get', dependencies = [], params = {}) {
     const [data, setData] = useState('')
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(true)

@@ -6,7 +6,7 @@ import IconButton from '@mui/material/IconButton';
 const CityItem = ({cities, setCities, editCityHandler, deleteCityHandler, isEditing, setIsEditing}) => {
   return (
     cities && cities.map((city, i) => (
-        <ListItem>
+        <ListItem key={i}>
             {isEditing === city.id ? (
                 <form onSubmit={(e) => editCityHandler(city.id, i, e)}>
                     <TextField

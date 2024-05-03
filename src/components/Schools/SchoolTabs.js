@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react'
 import TeachersList from '../Teachers/TeachersList'
 import StudentsList from '../Students/StudentsList'
 import GroupsList from '../Groups/GroupsList'
-import axios from 'axios'
 import config from '../../config'
 import { Link } from 'react-router-dom'
 import useFetchData from '../../hooks/useFetchData'
@@ -12,12 +11,12 @@ import useFetchData from '../../hooks/useFetchData'
 const SchoolTabs = ({school}) => {
   const [panel, setPanel] = useState('1')
 
-  let {data: students, error: studentsError} = useFetchData(`${config.API_URL}/schools/${school.id}/students`, {}, 'get', [school])
+  let {data: students, error: studentsError} = useFetchData(`${config.API_URL}/schools/${school.id}/students`, 'get', [school])
 
-  let {data: groups, error: groupsError} = useFetchData(`${config.API_URL}/schools/${school.id}/groups`, {}, 'get', [school])
+  let {data: groups, error: groupsError} = useFetchData(`${config.API_URL}/schools/${school.id}/groups`, 'get', [school])
 
 
-  const changePanel = (event, newValue) => {
+  const changePanel = (_, newValue) => {
     setPanel(newValue);
   }
 

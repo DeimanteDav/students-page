@@ -7,23 +7,19 @@ import EditButtonsGroup from '../Buttons/EditButtonsGroup';
 import useFetchData from '../../hooks/useFetchData';
 import useLocalStorage from '../../hooks/useLocalStorage';
 
-const AddSchool = ({ school, setIsEditing, setIsAddingSchool, edit = false, add = false, schoolId}) => {
+const AddSchool = ({ school, setIsEditing, setAddingSchool, edit = false, add = false, schoolId}) => {
     const [name, setName] = useLocalStorage('school-name', (school ? school.name : ''))
     const [city, setCity] = useLocalStorage('school-city', (school ? school.city.id : ''))
     const [image, setImage] = useLocalStorage('school-image', (school ? school.image : ''))
     const [isImgDeleted, setIsImgDeleted] = useState(null)
 
-    // const [citiesOpt, setCitiesOpt] = useState([])
-
-    
     const [userRole, setUserRole] = useState('')
+
     useEffect(() => {
       setUserRole(localStorage.getItem('userRole'))
     }, [])
 
-    
     let {data: citiesOpt, error: citiesOptError} = useFetchData(`${config.API_URL}/cities`)
-
 
     function addSchoolHandler(e) {
         e.preventDefault()
@@ -36,7 +32,8 @@ const AddSchool = ({ school, setIsEditing, setIsAddingSchool, edit = false, add 
                 if (res.status === 201) {
                     setName('')
                     setCity('')
-                    setIsAddingSchool(prevState => !prevState)
+                    setImage('')
+                    setAddingSchool(prevState => !prevState)
                 }
             })
     }
@@ -59,14 +56,14 @@ const AddSchool = ({ school, setIsEditing, setIsAddingSchool, edit = false, add 
               localStorage.setItem('school-image', null)
             }
           })
-      }
+    }
 
   return (
-    userRole == 'administrative' && (
+    userRole === 'administrative' && (
         <Box component='form' onSubmit={edit ? editSchoolHandler : addSchoolHandler} sx={{ maxWidth: '600px', '& h3': {mb: 0}}}>
         <Grid container mb={4} gap={2}>
-        {add && <Grid xs={12}> <h3>Add a school</h3> </Grid>}
-            <Grid xs={12} sm={5}>
+            {add && <Grid item xs={12}> <h3>Add a school</h3> </Grid>}
+            <Grid item xs={12} sm={5}>
                 <Stack direction='column' spacing={2} maxWidth='250px' minWidth='150px'>
                     <TextField label='School title' size='small' value={name} onChange={(e) => setName(e.target.value)}></TextField>
 
@@ -107,18 +104,17 @@ const AddSchool = ({ school, setIsEditing, setIsAddingSchool, edit = false, add 
                 </Stack>
 
             </Grid>
-
             {edit ? (
                 <>
-                <Grid xs={8} sm={5}>
+                <Grid item xs={8} sm={5}>
                 {isImgDeleted ? (
-                    <img src={'https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png'}></img>
+                    <img alt='school' src={'https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png'}></img>
                 ) : (
-                    <img src={school.image ? school.image : 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png'}></img>
+                    <img alt='school' src={school.image ? school.image : 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png'}></img>
                 )}
                 </Grid>
                 
-                <Grid xs={12} sm={5} alignSelf='center'>
+                <Grid item xs={12} sm={5} alignSelf='center'>
                     <EditButtonsGroup
                         cancelClickHandler={(() => {
                         setIsEditing(false)
@@ -128,7 +124,7 @@ const AddSchool = ({ school, setIsEditing, setIsAddingSchool, edit = false, add 
                 </Grid>
                 </>
             ) : (
-                <Grid xs={12} alignSelf='center'>
+                <Grid item xs={12} alignSelf='center'>
                     <Button variant='contained' type='submit' size='small'>ADd</Button>
                 </Grid>
             )}

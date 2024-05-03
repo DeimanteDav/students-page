@@ -16,8 +16,8 @@ const SchoolsList = ({cities, cityName, divider = false}) => {
           }
         >
           <>
-            {city.schools.map(school => (
-              <ListItem>
+            {city.schools.map((school, i) => (
+              <ListItem key={i}>
                 <ListItemButton
                   key={school.id}
                   component={Link}

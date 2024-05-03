@@ -1,5 +1,4 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import config from '../../config'
 import { Typography } from '@mui/material'
 import AddCity from './AddCity';
@@ -13,7 +12,7 @@ const CityForm = ({setCityIsLoading}) => {
     const [isDeleting, setIsDeleting] = useState(false)
 
 
-    let {data: cities, setData: setCities, loading} = useFetchData(`${config.API_URL}/cities?_sort=id&_order=desc`, {}, 'get', [isDeleting])
+    let {data: cities, setData: setCities, loading} = useFetchData(`${config.API_URL}/cities?_sort=id&_order=desc`, 'get', [isDeleting])
     setCityIsLoading(loading)
 
 

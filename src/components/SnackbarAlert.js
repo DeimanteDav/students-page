@@ -4,6 +4,10 @@ import { createPortal } from 'react-dom'
 
 
 const SnackbarAlert = ({close, type, text}) => {
+  if (!type) {
+    return
+  }
+
   return (
     createPortal(
         <Snackbar open={type ? true : false} autoHideDuration={6000} onClose={close}>

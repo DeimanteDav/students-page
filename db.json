@@ -23,12 +23,6 @@
       "teacherId": 2,
       "schoolId": 11,
       "id": 4
-    },
-    {
-      "title": "Group 5",
-      "teacherId": 3,
-      "schoolId": 4,
-      "id": 5
     }
   ],
   "students": [
@@ -132,18 +126,7 @@
       "id": 3
     }
   ],
-  "classes": [
-    {
-      "name": "Matematika",
-      "teacherId": 3,
-      "id": 1
-    },
-    {
-      "name": "Lietuviu kalba",
-      "teacherId": 3,
-      "id": 2
-    }
-  ],
+  "classes": [],
   "teachers": [
     {
       "name": "Mokytojas",
@@ -161,14 +144,6 @@
       "schoolId": 11,
       "profile": "",
       "id": 2
-    },
-    {
-      "name": "Auguste",
-      "surname": "Pavarde",
-      "date": "1991-02-01",
-      "schoolId": 11,
-      "profile": "",
-      "id": 3
     }
   ],
   "schools": [
@@ -226,6 +201,21 @@
       "name": "elektrenu mok",
       "cityId": 1,
       "id": 15
+    },
+    {
+      "name": "mokyyklaa",
+      "cityId": 3,
+      "id": 16
+    },
+    {
+      "name": "mokykla nr 100",
+      "cityId": 1,
+      "id": 17
+    },
+    {
+      "name": "school nr 1000",
+      "cityId": 1,
+      "id": 18
     }
   ],
   "users": [

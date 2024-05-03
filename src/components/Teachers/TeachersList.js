@@ -1,6 +1,6 @@
 import React from 'react'
 import Typography from '@mui/material/Typography';
-import { List, ListSubheader } from '@mui/material';
+import { List } from '@mui/material';
 import TeachersListItem from './TeacherListItem';
 
 const TeachersList = ({teachers, title, header = false}) => {
@@ -9,10 +9,10 @@ const TeachersList = ({teachers, title, header = false}) => {
     <>
       {(header || title) && <Typography variant={title ? 'h5' : 'h6'} component="h2" mb={2}>{title ? title : 'Teachers'}</Typography>}
       <List>
-        {(teachers && teachers.length > 0) ? (
-          teachers && teachers.map(teacher => {
+        {teachers?.length > 0 ? (
+          teachers.map((teacher, i) => {
             return (
-              <TeachersListItem teacher={teacher} />
+              <TeachersListItem key={i} teacher={teacher} />
             )
           })
         ) : (
