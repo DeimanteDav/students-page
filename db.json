@@ -17,12 +17,6 @@
       "teacherId": 2,
       "schoolId": 12,
       "id": 3
-    },
-    {
-      "title": "Group 4",
-      "teacherId": 2,
-      "schoolId": 11,
-      "id": 4
     }
   ],
   "students": [
@@ -41,7 +35,7 @@
       "surname": "pavardenis",
       "cityId": 1,
       "schoolId": 12,
-      "groupId": 1,
+      "groupId": 3,
       "code": null,
       "id": 3
     },
@@ -50,7 +44,7 @@
       "surname": "P",
       "cityId": 3,
       "schoolId": 3,
-      "groupId": 2,
+      "groupId": 3,
       "code": null,
       "id": 5,
       "userId": 7
@@ -60,14 +54,14 @@
       "surname": "pavardee",
       "cityId": 4,
       "schoolId": 4,
-      "groupId": 2,
+      "groupId": 3,
       "code": "wnOoj!amKW",
       "id": 6
     },
     {
       "name": "dddd",
       "surname": "Pavarde",
-      "groupId": 1,
+      "groupId": 3,
       "cityId": 1,
       "schoolId": 15,
       "id": 7
@@ -100,32 +94,7 @@
     }
   ],
   "gradesGroup": [],
-  "grades": [
-    {
-      "studentId": 5,
-      "classId": "1",
-      "date": "2024-04-29T14:44:45.803Z",
-      "value": 7,
-      "updatedDate": null,
-      "id": 1
-    },
-    {
-      "studentId": 5,
-      "classId": "2",
-      "date": "2024-04-29T14:44:45.804Z",
-      "value": 2,
-      "updatedDate": null,
-      "id": 2
-    },
-    {
-      "studentId": 5,
-      "classId": "1",
-      "date": "2024-04-29T14:44:51.482Z",
-      "value": 3,
-      "updatedDate": null,
-      "id": 3
-    }
-  ],
+  "grades": [],
   "classes": [],
   "teachers": [
     {

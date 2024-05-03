@@ -1,6 +1,6 @@
 import { TabContext, TabList, TabPanel } from '@mui/lab'
 import { Box, Tab } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import TeachersList from '../Teachers/TeachersList'
 import StudentsList from '../Students/StudentsList'
 import GroupsList from '../Groups/GroupsList'

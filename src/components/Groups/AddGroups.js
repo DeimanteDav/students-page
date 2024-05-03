@@ -6,6 +6,7 @@ import EditButtonsGroup from '../Buttons/EditButtonsGroup'
 import useFetchData from '../../hooks/useFetchData'
 import useLocalStorage from '../../hooks/useLocalStorage'
 
+
 const AddGroups = ({group, setAddingGroup, setIsEditing, add = false, edit = false, groupId}) => {
     const [title, setTitle] = useLocalStorage('group-title', (group ? group.title : ''))
     const [teacher, setTeacher] = useLocalStorage('group-teacher', (group ? group.teacher.id : ''))
@@ -19,6 +20,12 @@ const AddGroups = ({group, setAddingGroup, setIsEditing, add = false, edit = fal
     let {data: teachersOptions, error: teachersOptError} = useFetchData(`${config.API_URL}/teachers`)
 
     let {data: schoolsOptions, error: schoolsOptError} = useFetchData(`${config.API_URL}/schools?_expand=city`)
+
+    // if (schoolsOptions) {
+    //     schoolsOptions = schoolsOptions.map(opt => {
+    //         console.log(opt);
+    //     })
+    // }
 
     const addGroupHandler = (e) => {
         e.preventDefault()
@@ -63,9 +70,9 @@ const AddGroups = ({group, setAddingGroup, setIsEditing, add = false, edit = fal
             })
     }
 
-    
+    console.log(teacher, teachersOptions);
   return (
-    userRole == 'administrative' && (
+    userRole === 'administrative' && (
         <Box
             component="form"
             sx={{
@@ -93,6 +100,7 @@ const AddGroups = ({group, setAddingGroup, setIsEditing, add = false, edit = fal
             <FormControl sx={{ width: '100%' }} size="small">
                 <InputLabel id="demo-select-small-label">Teacher</InputLabel>
                 <Select
+                    defaultValue = "" 
                     value={teacher}
                     label='Teacher'
                     onChange={(e) => setTeacher(e.target.value)}
@@ -114,8 +122,9 @@ const AddGroups = ({group, setAddingGroup, setIsEditing, add = false, edit = fal
                     options={schoolsOptions.sort((a, b) => -b.city.name.localeCompare(a.city.name))}
                     groupBy={(option) => option.city.name}
                     value={school}
-                    onChange={(event, value) => setSchool(value)}
+                    onChange={(_, value) => setSchool(value)}
                     getOptionLabel={(option) => option.name}
+                    isOptionEqualToValue={(option, value) => option.id === value.id}
                     renderInput={(params) => <TextField {...params} label="School" variant="outlined" />}
                 />
             ) : (

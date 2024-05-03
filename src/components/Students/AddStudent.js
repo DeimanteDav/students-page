@@ -25,7 +25,7 @@ const AddStudent = ({setStudents, add = false, edit = false, studentId, setIsEdi
   let {data: citiesOption, error: citiesOptError} = useFetchData(`${config.API_URL}/cities`)
 
 
-  let {data: schoolsOption, error: schoolsOptError} = useFetchData(`${config.API_URL}/cities/${city}?_embed=schools`, {}, 'get', [city])
+  let {data: schoolsOption, error: schoolsOptError} = useFetchData(`${config.API_URL}/cities/${city}?_embed=schools`, 'get', [city])
 
   function addStudentHandler(e) {
     e.preventDefault()
@@ -61,7 +61,6 @@ const AddStudent = ({setStudents, add = false, edit = false, studentId, setIsEdi
       groupId: group ? Number(group) : '',
       cityId: city ? Number(city) : '',
       schoolId: school ? Number(school) : '',
-      groupId: group ? Number(group) : '',
       id: Number(studentId),
     })
         .then(response => {
@@ -83,7 +82,7 @@ const AddStudent = ({setStudents, add = false, edit = false, studentId, setIsEdi
       
   
   return (
-    userRole == 'administrative' && (
+    userRole === 'administrative' && (
       <form className='add-student' onSubmit={add ? addStudentHandler : editStudentHandler}>
       {add && <h3>Add a student</h3>}
         <TextField 

@@ -21,12 +21,14 @@ const Group = () => {
     const [isEditing, setIsEditing] = useState(false)
 
     const [userRole, setUserRole] = useState('')
+
     useEffect(() => {
       setUserRole(localStorage.getItem('userRole'))
-    })
+    }, [])
 
 
-    let {data: group, error: groupError} = useFetchData(`${config.API_URL}/groups/${groupId}?_embed=students&_expand=teacher&_expand=school`, {}, 'get', [groupId, addingStudent, isEditing])
+    let {data: group, error: groupError} = useFetchData(`${config.API_URL}/groups/${groupId}?_embed=students&_expand=teacher&_expand=school`, 'get', [groupId, addingStudent, isEditing])
+
 
     useEffect(() => {
         axios.get(`${config.API_URL}/students`)
@@ -81,7 +83,7 @@ const Group = () => {
 
             <StudentsList students={group.students} header />
 
-            {userRole == 'administrative' && (
+            {userRole === 'administrative' && (
                 <Box 
                     component="form"
                     sx={{ maxWidth: '24ch' }}
