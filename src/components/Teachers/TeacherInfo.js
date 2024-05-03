@@ -1,6 +1,7 @@
-import { Avatar } from '@mui/material'
+import { Avatar, IconButton } from '@mui/material'
 import React from 'react'
 import { Link } from 'react-router-dom'
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const TeacherInfo = ({teacher, deleteClassHandler}) => {
     const age = (date) => {
@@ -16,7 +17,7 @@ const TeacherInfo = ({teacher, deleteClassHandler}) => {
     <div className='info'>
         <h2>Teacher info</h2>
         {teacher.profile ? 
-        <img style={{width: '50%'}}  src={teacher.profile}></img> 
+            <img alt='teacher' style={{width: '50%'}}  src={teacher.profile}></img> 
         : <Avatar sx={{width: '50%', height: '50%', aspectRatio: 1 / 1}} variant='rounded'/>}
         
         <div className='list'>
@@ -43,16 +44,19 @@ const TeacherInfo = ({teacher, deleteClassHandler}) => {
             )}
         </div>
 
-        <div className='list'>
+        <div className='list'> 
             <h4>Classes:</h4>
             {teacher.classes && teacher.classes.length > 0 ? (
                 <ul className='classes'>
                 {teacher.classes.map(oneClass => {
                     return (
-                    <>
-                        <li key={oneClass.id}>{oneClass.name}</li>
-                        <button type='button' onClick={(e) => deleteClassHandler(oneClass.id, e)}>X</button>
-                    </>
+                    <li key={oneClass.id}>
+                        {oneClass.name}
+
+                        <IconButton aria-label="delete" onClick={(e) => deleteClassHandler(oneClass.id, e)}>
+                            <DeleteIcon />
+                        </IconButton>
+                    </li>
                     )
                 })} 
                 </ul> 

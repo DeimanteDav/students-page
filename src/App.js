@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import { Routes, Route, NavLink, Link, useLocation, useNavigate } from 'react-router-dom';
 import StudentsPage from './Pages/StudentsPage';
@@ -54,10 +53,16 @@ function App() {
     }
 
 
-  }, [loggedInUserId])
+  }, [loggedInUserId, userRole])
 
 
-  const handleChange = (event, newValue) => {
+  const handleLogOut = () => {
+    localStorage.setItem('loggedIn', JSON.stringify(false))
+    redirect('/')
+    window.location.reload(true)
+  }
+
+  const handleTabs = (_, newValue) => {
     setValue(newValue);
   };
 
@@ -70,7 +75,7 @@ function App() {
           <Box sx={{ flexGrow: 1 }}>
             <AppBar>
               <Toolbar sx={{ justifyContent: 'space-between' }}>
-                <Tabs sx={{ mr: 4 }} value={value} onChange={handleChange} textColor='inherit'>
+                <Tabs sx={{ mr: 4 }} value={value} onChange={handleTabs} textColor='inherit'>
                   {userRole === 'administrative' && (
                     <Tab label={
                       <IconButton color='inherit' aria-label='settings'>
@@ -85,11 +90,7 @@ function App() {
                 </Tabs>
 
                 <Tabs textColor='inherit' value={0}>
-                  <Tab label={
-                    <Button color='inherit' onClick={() => (localStorage.setItem('loggedIn', JSON.stringify(false), redirect('/'), window.location.reload(true)))}>Log out</Button>
-
-                  }>
-                  </Tab>
+                  <Tab lable='log-out' onClick={handleLogOut}/>
                 </Tabs>
               </Toolbar>
             </AppBar>

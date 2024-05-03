@@ -106,16 +106,41 @@
     }
   ],
   "gradesGroup": [],
-  "grades": [],
+  "grades": [
+    {
+      "studentId": 5,
+      "classId": "1",
+      "date": "2024-04-29T14:44:45.803Z",
+      "value": 7,
+      "updatedDate": null,
+      "id": 1
+    },
+    {
+      "studentId": 5,
+      "classId": "2",
+      "date": "2024-04-29T14:44:45.804Z",
+      "value": 2,
+      "updatedDate": null,
+      "id": 2
+    },
+    {
+      "studentId": 5,
+      "classId": "1",
+      "date": "2024-04-29T14:44:51.482Z",
+      "value": 3,
+      "updatedDate": null,
+      "id": 3
+    }
+  ],
   "classes": [
     {
       "name": "Matematika",
-      "teacherId": "",
+      "teacherId": 3,
       "id": 1
     },
     {
       "name": "Lietuviu kalba",
-      "teacherId": "",
+      "teacherId": 3,
       "id": 2
     }
   ],

@@ -1,0 +1,52 @@
+.settings .loading-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.settings .add-form h3 {
+  margin-bottom: 10px;
+}
+.settings .add-form h4 {
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+.settings ul {
+  margin-top: 20px;
+  margin-bottom: 50px;
+  max-width: 200px;
+  padding-left: 0;
+}
+.settings ul li {
+  display: flex;
+  margin-bottom: 15px;
+  justify-content: space-between;
+}
+.settings .classes {
+  max-width: 250px;
+}
+.settings .classes li {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+}
+.settings .classes li .edit-form {
+  grid-column: 1/3;
+  grid-row: 1/3;
+}
+.settings .classes li div {
+  grid-row: 1/3;
+  align-items: center;
+}
+.settings .classes li .teacher {
+  grid-column: 1/3;
+  grid-row: 2;
+  color: rgb(80, 80, 80);
+}
+.settings .classes li .teacher a {
+  text-decoration: none;
+  color: rgb(80, 80, 80);
+  transition: color 0.1s ease-in;
+}
+.settings .classes li .teacher a:hover {
+  color: rgb(0, 0, 177);
+}/*# sourceMappingURL=Settings.css.map */

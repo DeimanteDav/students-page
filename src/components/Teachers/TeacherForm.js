@@ -51,7 +51,7 @@ const Style = styled.div`
   }
 `
 
-const TeacherForm = ({teacher, setIsEditing, allClasses, teacherId, setTeacher, deleteClassHandler}) => {
+const TeacherForm = ({teacher, setIsEditing, allClasses, teacherId, setTeacher, deleteClassHandler, setAddingClass}) => {
     let redirect = useNavigate()
 
     const deleteTeacherHandler = () => {
@@ -66,7 +66,7 @@ const TeacherForm = ({teacher, setIsEditing, allClasses, teacherId, setTeacher, 
   return (
     <Style>
         <TeacherInfo teacher={teacher} deleteClassHandler={deleteClassHandler} />
-        <AddClasses allClasses={allClasses} teacherId={teacherId} setTeacher={setTeacher} />
+        <AddClasses allClasses={allClasses} teacherId={teacherId} setTeacher={setTeacher} setAddingClass={setAddingClass} />
 
         <ButtonsGroup
             margin

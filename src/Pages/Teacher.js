@@ -91,12 +91,12 @@ const Teacher = () => {
     .then(res => {
       if (res.status === 200) {
           let filteredClasses = res.data.filter(oneClass => {
-            return oneClass.teacherId != Number(teacherId)
+            return oneClass.teacherId !== Number(teacherId)
         })
         setAllClasses(filteredClasses)
       }
     })
-  }, [teacherId, addingClass, deleteClassHandler])
+  }, [teacherId, addingClass, classDeleting])
 
   const randomProfileHandler = (e) => {
     e.preventDefault()
@@ -133,31 +133,31 @@ const Teacher = () => {
   }
 
 
-  const editTeacherHandler = (e) => {
-    e.preventDefault()
+  // const editTeacherHandler = (e) => {
+  //   e.preventDefault()
 
-    axios.put(`${config.API_URL}/teachers/${teacherId}`, {
-      name: teacher.name,
-      surname: teacher.surname,
-      date: teacher.date,
-      profile: profile ? profile.large : teacher.profile,
-      schoolId: school ? school.id : '',
-      id: Number(teacherId),
-    })
-      .then(response => {
-        if (response.status === 200) {
-          setIsEditing(false)
-          if (profile) {
-            setTeacher(prevState => {
-              let newState = {...prevState}
-              return {...newState, profile: profile.large}
-            })
-            setProfile('')
-          }
-        }
-      })
+  //   axios.put(`${config.API_URL}/teachers/${teacherId}`, {
+  //     name: teacher.name,
+  //     surname: teacher.surname,
+  //     date: teacher.date,
+  //     profile: profile ? profile.large : teacher.profile,
+  //     schoolId: school ? school.id : '',
+  //     id: Number(teacherId),
+  //   })
+  //     .then(response => {
+  //       if (response.status === 200) {
+  //         setIsEditing(false)
+  //         if (profile) {
+  //           setTeacher(prevState => {
+  //             let newState = {...prevState}
+  //             return {...newState, profile: profile.large}
+  //           })
+  //           setProfile('')
+  //         }
+  //       }
+  //     })
 
-  }
+  // }
   
 
   return (
@@ -242,6 +242,7 @@ const Teacher = () => {
           teacherId={teacherId}
           setTeacher={setTeacher}
           deleteClassHandler={deleteClassHandler}
+          setAddingClass={setAddingClass}
         />
       )}
     </Container>

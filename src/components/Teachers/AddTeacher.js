@@ -125,7 +125,7 @@ const AddTeacher = ({setTeachers, setTeacher, setIsEditing, teacher, className, 
 
 
   return (
-    userRole == 'administrative' && (
+    userRole === 'administrative' && (
       <Box
       component="form"
       sx={{
@@ -185,7 +185,7 @@ const AddTeacher = ({setTeachers, setTeacher, setIsEditing, teacher, className, 
 
 
         {add && <Stack direction='row' spacing={2} alignItems='center' flexWrap='wrap' justifyContent='center'>
-            {profile.random && <img src={profile.large}></img>}
+            {profile.random && <img alt='teacher' src={profile.large}></img>}
 
           <Button variant='contained' size='small' type='submit'>Add</Button>
           <Button onClick={randomProfileHandler}>random img</Button>
@@ -195,7 +195,7 @@ const AddTeacher = ({setTeachers, setTeacher, setIsEditing, teacher, className, 
           <>
           {profile ? (
             <Stack direction='row' alignItems='center' spacing={2} width='100%'>
-              <img style={{width: '80%'}} src={profile.large}></img> 
+              <img alt='teacher' style={{width: '80%'}} src={profile.large}></img> 
               <IconButton aria-label="delete" variant size='small' onClick={deleteProfileHandler}>
                 <DeleteIcon fontSize='small'/>
               </IconButton>
@@ -204,7 +204,7 @@ const AddTeacher = ({setTeachers, setTeacher, setIsEditing, teacher, className, 
             <Stack direction='row' alignItems='center' spacing={2} width='100%'>
               {(teacher && teacher.profile) ? (
                 <>
-                  <img style={{width: '50%'}}  src={teacher.profile}></img> 
+                  <img alt='teacher' style={{width: '50%'}}  src={teacher.profile}></img> 
                   <IconButton aria-label="delete" variant size='small' onClick={deleteProfileHandler}>
                     <DeleteIcon fontSize='small'/>
                   </IconButton>

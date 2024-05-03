@@ -19,11 +19,11 @@ const AddClasses = ({allClasses, teacherId, setAddingClass, setTeacher}) => {
         })
         .then(response => {
             if (response.status === 200) {
-            setSelectedClass(null)
-            setAddingClass(prevState => !prevState)
-            setTeacher(prevState => {
-                return {...prevState, classes: [...prevState.classes, response.data]}
-            })
+                setSelectedClass(null)
+                setAddingClass(prevState => !prevState)
+                setTeacher(prevState => {
+                    return {...prevState, classes: [...prevState.classes, response.data]}
+                })
             }
         })
     }
@@ -33,7 +33,7 @@ const AddClasses = ({allClasses, teacherId, setAddingClass, setTeacher}) => {
     }
 
   return (
-    userRole == 'administrative' && (
+    userRole === 'administrative' && (
         <Box
             component='form'
             onSubmit={addClassHandler}
@@ -54,7 +54,7 @@ const AddClasses = ({allClasses, teacherId, setAddingClass, setTeacher}) => {
                     renderInput={(params) => <TextField {...params} label="Classes"
                         inputProps={{
                         ...params.inputProps,
-                        autoComplete: 'new-password', // disable autocomplete and autofill
+                        autoComplete: 'new-password',
                         }}
                     />}
                 />

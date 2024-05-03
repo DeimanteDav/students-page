@@ -80,8 +80,7 @@ const AddStudent = ({setStudents, add = false, edit = false, studentId, setIsEdi
             }
         })
   }
-  
-  
+      
   
   return (
     userRole == 'administrative' && (
