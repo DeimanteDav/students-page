@@ -1,78 +1,14 @@
 {
-  "groups": [
-    {
-      "id": 1,
-      "title": "Group 1",
-      "teacherId": 1,
-      "schoolId": 11
-    },
-    {
-      "id": 2,
-      "title": "Group 2",
-      "teacherId": 1,
-      "schoolId": 11
-    },
-    {
-      "title": "Group 3",
-      "teacherId": 2,
-      "schoolId": 12,
-      "id": 3
-    }
-  ],
+  "groups": [],
   "students": [
     {
-      "name": "jonas",
-      "surname": "pavardenis",
-      "cityId": 1,
-      "schoolId": 11,
-      "groupId": 3,
-      "userId": 3,
-      "code": null,
-      "id": 2
-    },
-    {
-      "name": "Lukas",
-      "surname": "pavardenis",
-      "cityId": 1,
-      "schoolId": 12,
-      "groupId": 3,
-      "code": null,
-      "id": 3
-    },
-    {
-      "name": "Marija",
-      "surname": "P",
-      "cityId": 3,
-      "schoolId": 3,
-      "groupId": 3,
-      "code": null,
-      "id": 5,
-      "userId": 7
-    },
-    {
-      "name": "mokinys",
-      "surname": "pavardee",
-      "cityId": 4,
-      "schoolId": 4,
-      "groupId": 3,
-      "code": "wnOoj!amKW",
-      "id": 6
-    },
-    {
-      "name": "dddd",
-      "surname": "Pavarde",
-      "groupId": 3,
-      "cityId": 1,
-      "schoolId": 15,
-      "id": 7
-    },
-    {
       "name": "Studentas",
-      "surname": "",
-      "groupId": 3,
+      "surname": "pavardenis",
       "cityId": 4,
       "schoolId": 4,
-      "id": 8
+      "groupId": 1,
+      "code": "/8/y<8c_#a",
+      "id": 1
     }
   ],
   "cities": [
@@ -87,15 +23,17 @@
     {
       "name": "Kaunas",
       "id": 4
-    },
-    {
-      "name": "Vilniu",
-      "id": 5
     }
   ],
   "gradesGroup": [],
   "grades": [],
-  "classes": [],
+  "classes": [
+    {
+      "name": "Matematika",
+      "teacherId": 1,
+      "id": 1
+    }
+  ],
   "teachers": [
     {
       "name": "Mokytojas",
@@ -105,14 +43,6 @@
       "profile": "",
       "userId": 1,
       "id": 1
-    },
-    {
-      "name": "Vardas",
-      "surname": "Pavarde",
-      "date": "1990-02-01",
-      "schoolId": 11,
-      "profile": "",
-      "id": 2
     }
   ],
   "schools": [
@@ -133,17 +63,6 @@
       "cityId": 3,
       "id": 6,
       "image": "https://s1.15min.lt/static/cache/OTcweDU4MCw5OTh4NzEyLDYxNjIwOSxvcmlnaW5hbCwsaWQ9MjU4NzcwNSZkYXRlPTIwMTYlMkYxMSUyRjIyLDE2NTYxMDEyMjg=/sv-kristoforo-gimnazija-58342d63dbab5.jpg"
-    },
-    {
-      "name": "Versme",
-      "cityId": 5,
-      "id": 8,
-      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_J0OTurxf6yxap8h1cGse9MBm4g8lXEpzvzYHTZkNQDscCk7Ea9iFzkBv_UQv1TOyKOI&usqp=CAU"
-    },
-    {
-      "name": "Mokykla",
-      "cityId": 5,
-      "id": 9
     },
     {
       "name": "mokyyklaa",
@@ -255,9 +174,9 @@
       "id": 1,
       "userRoleId": 1,
       "grades": {
-        "delete": false,
+        "delete": true,
         "edit": false,
-        "add": true,
+        "add": false,
         "view": true
       }
     },
@@ -265,7 +184,7 @@
       "id": 2,
       "userRoleId": 2,
       "grades": {
-        "delete": true,
+        "delete": false,
         "edit": false,
         "add": false,
         "view": true,

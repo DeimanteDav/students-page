@@ -8,23 +8,20 @@ import useLocalStorage from '../../hooks/useLocalStorage'
 import useFetchData from '../../hooks/useFetchData'
  
 const AddStudent = ({setStudents, add = false, edit = false, studentId, setIsEditing, student}) => {
-
   const [name, setName] = useLocalStorage('student-name', (student ? student.name : ''))
   const [surname, setSurname] = useLocalStorage('student-surname', (student ? student.surname : ''))
   const [city, setCity] = useLocalStorage('student-city', (student ? student.cityId : ''))
-  const [group, setGroup] = useLocalStorage('student-group', (student ? student.groupId : ''))
+  const [group, setGroup] = useLocalStorage('student-group', (student?.groupId ? student.groupId : ''))
   const [school, setSchool] = useLocalStorage('student-school', (student ? student.schoolId : ''))
-       
+
   const [userRole, setUserRole] = useState('')
+
   useEffect(() => {
     setUserRole(localStorage.getItem('userRole'))
   }, [])
 
   let {data: groupsOption, error: groupsOptError} = useFetchData(`${config.API_URL}/groups`)
-
   let {data: citiesOption, error: citiesOptError} = useFetchData(`${config.API_URL}/cities`)
-
-
   let {data: schoolsOption, error: schoolsOptError} = useFetchData(`${config.API_URL}/cities/${city}?_embed=schools`, 'get', [city])
 
   function addStudentHandler(e) {
@@ -79,8 +76,7 @@ const AddStudent = ({setStudents, add = false, edit = false, studentId, setIsEdi
             }
         })
   }
-      
-  
+
   return (
     userRole === 'administrative' && (
       <form className='add-student' onSubmit={add ? addStudentHandler : editStudentHandler}>
@@ -104,11 +100,13 @@ const AddStudent = ({setStudents, add = false, edit = false, studentId, setIsEdi
           <Select
             value={group}
             label='Group'
-            onChange={(e) => setGroup(e.target.value)}
+            onChange={(e) => setGroup(+e.target.value)}
           >
             {groupsOption ? (
               groupsOption.map(group => {
-                return <MenuItem key={group.id} value={group.id}>{group.title}</MenuItem>
+                return (
+                  <MenuItem key={group.id} value={group.id}>{group.title}</MenuItem>
+                )
               })
             ) : (
               <MenuItem>{groupsOptError}</MenuItem>

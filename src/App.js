@@ -69,63 +69,64 @@ function App() {
   let redirect = useNavigate()
 
   return ( 
-    <>
+    <div>
+      {isLoggedIn && (
+        <Box sx={{ flexGrow: 1 }}>
+          <AppBar>
+            <Toolbar sx={{ justifyContent: 'space-between' }}>
+              <Tabs sx={{ mr: 4 }} value={value} onChange={handleTabs} textColor='inherit'>
+                {userRole === 'administrative' && (
+                  <Tab label={
+                    <IconButton color='inherit' aria-label='settings'>
+                      <SettingsIcon/>
+                    </IconButton>
+                  } component={NavLink} to='settings'/>
+                )}
+                <Tab label='students' component={NavLink} to='/'/>
+                <Tab label='groups' component={NavLink} to='groups'/>
+                <Tab label='teachers' component={NavLink} to='teachers'/>
+                <Tab label='schools' component={NavLink} to='schools'/>
+              </Tabs>
+
+              <Tabs textColor='inherit' value={0}>
+                <Tab lable='log-out' onClick={handleLogOut}/>
+              </Tabs>
+            </Toolbar>
+          </AppBar>
+        </Box>
+      )}
+
+      <Routes>
         {isLoggedIn ? (
           <>
-          <Box sx={{ flexGrow: 1 }}>
-            <AppBar>
-              <Toolbar sx={{ justifyContent: 'space-between' }}>
-                <Tabs sx={{ mr: 4 }} value={value} onChange={handleTabs} textColor='inherit'>
-                  {userRole === 'administrative' && (
-                    <Tab label={
-                      <IconButton color='inherit' aria-label='settings'>
-                        <SettingsIcon/>
-                      </IconButton>
-                    } component={NavLink} to='settings'/>
-                  )}
-                  <Tab label='students' component={NavLink} to='/'/>
-                  <Tab label='groups' component={NavLink} to='groups'/>
-                  <Tab label='teachers' component={NavLink} to='teachers'/>
-                  <Tab label='schools' component={NavLink} to='schools'/>
-                </Tabs>
-
-                <Tabs textColor='inherit' value={0}>
-                  <Tab lable='log-out' onClick={handleLogOut}/>
-                </Tabs>
-              </Toolbar>
-            </AppBar>
-          </Box>
-
-            <div style={{ marginTop: '80px' }}>
-              <Routes>
-                <Route path='/' element={<StudentsPage/>}/>
-                <Route path='/students/:studentId' element={<Student loggedInStudentId={loggedInStudentId} permissions={rolesPermissions && rolesPermissions.grades} />}/>
-                <Route path='/settings' element={<Settings/>}/>
-                <Route path='/groups' element={<Groups/>}/>
-                <Route path='/groups/:groupId' element={<Group/>}/>
-                <Route path='/teachers' element={<Teachers/>}/>
-                <Route path='/teachers/:teacherId' element={<Teacher/>}/>
-                <Route path='/style-test' element={<StyleTestPage/>}/>
-                <Route path='/schools' element={<SchoolsPage/>}/>
-                <Route path='/schools/:schoolId' element={<School/>}/>
-                <Route path='/schools/:schoolId/teachers' element={<SchoolTeachers/>}/>
-                <Route path='/schools/:schoolId/students' element={<SchoolStudents/>}/>
-                <Route path='/schools/:schoolId/groups' element={<SchoolGroups/>}/>
-                <Route path='/cities/:cityId' element={<City/>}/>
-                <Route path='/cities/:cityId/schools' element={<CitySchools/>}/>
-                <Route path='/cities/:cityId/students' element={<CityStudents/>}/>
-                <Route path='/local-storage' element={<LocalStorage/>}/>
-              </Routes>
-            </div>
+            <Route path='/' element={<StudentsPage/>}/>
+            <Route path='/students/:studentId' element={<Student loggedInStudentId={loggedInStudentId} permissions={rolesPermissions && rolesPermissions.grades} />}/>
+            <Route path='/settings' element={<Settings/>}/>
+            <Route path='/groups' element={<Groups/>}/>
+            <Route path='/groups/:groupId' element={<Group/>}/>
+            <Route path='/teachers' element={<Teachers/>}/>
+            <Route path='/teachers/:teacherId' element={<Teacher/>}/>
+            <Route path='/style-test' element={<StyleTestPage/>}/>
+            <Route path='/schools' element={<SchoolsPage/>}/>
+            <Route path='/schools/:schoolId' element={<School/>}/>
+            <Route path='/schools/:schoolId/teachers' element={<SchoolTeachers/>}/>
+            <Route path='/schools/:schoolId/students' element={<SchoolStudents/>}/>
+            <Route path='/schools/:schoolId/groups' element={<SchoolGroups/>}/>
+            <Route path='/cities/:cityId' element={<City/>}/>
+            <Route path='/cities/:cityId/schools' element={<CitySchools/>}/>
+            <Route path='/cities/:cityId/students' element={<CityStudents/>}/>
+            <Route path='/local-storage' element={<LocalStorage/>}/>
           </>
         ) : (
-          <Routes>
+          <>
             <Route path='/' element={<LogInPage />} />
             <Route path='/register' element={<RegisterPage />} />
-          </Routes>
+          </>
         )}
+      </Routes>
+    </div>
 
-    </>
+    
   );
 }
 

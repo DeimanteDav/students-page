@@ -9,7 +9,7 @@ import useLocalStorage from '../../hooks/useLocalStorage'
 
 const AddGroups = ({group, setAddingGroup, setIsEditing, add = false, edit = false, groupId}) => {
     const [title, setTitle] = useLocalStorage('group-title', (group ? group.title : ''))
-    const [teacher, setTeacher] = useLocalStorage('group-teacher', (group ? group.teacher.id : ''))
+    const [teacher, setTeacher] = useLocalStorage('group-teacher', (group?.teacher ? group.teacher.id : ''))
     const [school, setSchool] = useLocalStorage('group-school', (group ? group.school : null))
 
     const [userRole, setUserRole] = useState('')
@@ -76,17 +76,17 @@ const AddGroups = ({group, setAddingGroup, setIsEditing, add = false, edit = fal
         <Box
             component="form"
             sx={{
-            '& .MuiTextField-root, .MuiFormControl-root': { m: 1, width: '25ch' },
-            mb: 4,
-            '& h3': {mb: 1, ml: 1},
-            '& button': {ml: 1}
+                '& .MuiTextField-root, .MuiFormControl-root': { m: 1, width: '30ch' },
+                mb: 4,
+                '& h3': {mb: 1, ml: 1},
+                '& button': {ml: 1}
             }}
             noValidate
             autoComplete="off"
             width={'25ch'}
             onSubmit={add ? addGroupHandler : editGroupHandler}
         >
-            {add && <h2>Add a group</h2>}
+            <h2>{add ? 'Add a group' : 'Edit a group'}</h2>
             <TextField
                 id="outlined-required"
                 label="Title"

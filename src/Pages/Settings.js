@@ -11,9 +11,8 @@ import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Grid from '@mui/material/Unstable_Grid2'
 import Container from '../components/Container'
-import { Checkbox, FormControlLabel, Paper } from '@mui/material'
+import { Checkbox, FormControlLabel } from '@mui/material'
 import config from '../config'
-import { Newspaper } from '@mui/icons-material'
 import CityForm from '../components/Cities/CityForm'
 import GroupsList from '../components/Groups/GroupsList'
 
@@ -34,7 +33,6 @@ const Settings = () => {
     const [classIsLoading, setClassIsLoading] = useState(true)
 
     const [rolesPerm, setRolesPerm] = useState(JSON.parse(localStorage.getItem('data')))
-
     const [userRoles, setUserRoles] = useState([])
     const [view, setView] = useState(null)
     const [viewOwn, setViewOwn] = useState(null)
@@ -214,7 +212,8 @@ const Settings = () => {
         e.preventDefault()
         let elements = e.target.elements
 
-        {roleId == 1 ? (
+        
+        if (roleId === 1) {
             axios.patch(`${config.API_URL}/rolesPermissions/1`, {
                 grades: {
                     delete: elements.delete.checked,
@@ -224,18 +223,18 @@ const Settings = () => {
                 }
             })
                 .then(res => console.log(res.data))
-        ) : (
+        } else {
             axios.patch(`${config.API_URL}/rolesPermissions/2`, {
                 grades: {
                     delete: elements.delete.checked,
                     edit: elements.edit.checked,
                     add: elements.add.checked,
-                    view: elements.view.checked,
+                    view: elements.viewOthers.checked,
                     viewOwn: elements.viewOwn.checked
                 }
             })
                 .then(res => console.log(res.data))
-        )}
+        }
     }
 
     useEffect(() => {
@@ -253,115 +252,112 @@ const Settings = () => {
                 <div className='loading-wrapper'>
                     <ClipLoader className='loading' color="#36d7b7" />
                 </div>
-            ) :
-            (
-            <>
-            <Grid container spacing={2}>
-                <Grid xs={12} marginBottom={2}>
-                    <h2>Grades</h2>
-                    {userRoles.map(role => (
-                        <form key={role.id} onSubmit={(e) => roleHandler(e, role.id)}>
-                            <h3>{role.name}</h3>
-                            <Stack direction='row' flexWrap='wrap'>
-                                {role.id === 1 ? (
+            ) : (
+                <Grid container spacing={2}>
+                    <Grid xs={12} marginBottom={2}>
+                        <h2>Grades</h2>
+                        {userRoles.map(role => (
+                            <form key={role.id} onSubmit={(e) => roleHandler(e, role.id)}>
+                                <h3>{role.name}</h3>
+                                <Stack direction='row' flexWrap='wrap'>
+                                    {role.id === 1 ? (
+                                        <FormControlLabel 
+                                            control={<Checkbox />}
+                                            label='View'
+                                            name='view'
+                                            onChange={(e) => setView(e.target.checked)}
+                                        />
+                                    ) : (
+                                        <>
+                                        <FormControlLabel 
+                                            control={<Checkbox />}
+                                            label='View own'
+                                            name='viewOwn'
+                                            onChange={(e) => setViewOwn(e.target.checked)}
+                                            />
+                                        <FormControlLabel 
+                                            control={<Checkbox />}
+                                            label='View other`s'
+                                            name='viewOthers'
+                                            onChange={(e) => setViewOthers(e.target.checked)}
+                                            />
+                                        </>
+                                    )}
                                     <FormControlLabel 
                                         control={<Checkbox />}
-                                        label='View'
-                                        name='view'
-                                        onChange={(e) => setView(e.target.checked)}
+                                        label='Delete'
+                                        name='delete'
+                                        disabled={
+                                            role.id === 1 ? (
+                                                !view && true
+                                            ) : (
+                                                (!viewOwn && !viewOthers) && true
+                                            )
+                                        }
                                     />
-                                ) : (
-                                    <>
                                     <FormControlLabel 
                                         control={<Checkbox />}
-                                        label='View own'
-                                        name='viewOwn'
-                                        onChange={(e) => setViewOwn(e.target.checked)}
-                                        />
+                                        label='Edit'
+                                        name='edit'
+                                        disabled={
+                                            role.id === 1 ? (
+                                                !view && true
+                                            ) : (
+                                                (!viewOwn && !viewOthers) && true
+                                            )
+                                        }
+                                    />
                                     <FormControlLabel 
                                         control={<Checkbox />}
-                                        label='View other`s'
-                                        name='viewOthers'
-                                        onChange={(e) => setViewOthers(e.target.checked)}
-                                        />
-                                    </>
-                                )}
-                                <FormControlLabel 
-                                    control={<Checkbox />}
-                                    label='Delete'
-                                    name='delete'
-                                    disabled={
-                                        role.id === 1 ? (
-                                            !view && true
-                                        ) : (
-                                            (!viewOwn && !viewOthers) && true
-                                        )
-                                    }
-                                />
-                                <FormControlLabel 
-                                    control={<Checkbox />}
-                                    label='Edit'
-                                    name='edit'
-                                    disabled={
-                                        role.id === 1 ? (
-                                            !view && true
-                                        ) : (
-                                            (!viewOwn && !viewOthers) && true
-                                        )
-                                    }
-                                />
-                                <FormControlLabel 
-                                    control={<Checkbox />}
-                                    label='Add'
-                                    name='add'
-                                    disabled={
-                                        role.id === 1 ? (
-                                            !view && true
-                                        ) : (
-                                            (!viewOwn && !viewOthers) && true
-                                        )
-                                    }
-                                />
-                            </Stack>
-                            <Button type='submit' size='small' variant='contained'>save</Button>
-                        </form>
-                    ))}
-                </Grid>
-                <Grid xs={12} sm={6} md>
-                    <CityForm setCityIsLoading={setCityIsLoading} />
-                </Grid>
-                <Grid xs={12} sm={6} md>
-                    <form onSubmit={addGroupHandler} className='add-form'>
-                        <h3>Groups</h3>
-                        <h4>Add a group</h4>
-                        <TextField
-                            id="standard-size-small"
-                            label="Group title"
-                            variant="standard"
-                            size='small'
-                            value={groupInput}
-                            onChange={(e) => setGroupInput(e.target.value)}
-                        />
-                    </form>
-                    <ul className='groups'>{groupsList}</ul>
-                </Grid>
-                <Grid xs={12} sm={6} md>
-                    <form onSubmit={addClassHandler} className='add-form'>
-                        <h3>Classes</h3>
-                        <h4>Add a class</h4>
-                        <TextField
-                            id="standard-size-small"
-                            label="Class name"
-                            variant="standard"
-                            size='small'
-                            value={classInput}
-                            onChange={(e) => setClassInput(e.target.value)}
+                                        label='Add'
+                                        name='add'
+                                        disabled={
+                                            role.id === 1 ? (
+                                                !view && true
+                                            ) : (
+                                                (!viewOwn && !viewOthers) && true
+                                            )
+                                        }
+                                    />
+                                </Stack>
+                                <Button type='submit' size='small' variant='contained'>save</Button>
+                            </form>
+                        ))}
+                    </Grid>
+                    <Grid xs={12} sm={6} md>
+                        <CityForm setCityIsLoading={setCityIsLoading} />
+                    </Grid>
+                    <Grid xs={12} sm={6} md>
+                        <form onSubmit={addGroupHandler} className='add-form'>
+                            <h3>Groups</h3>
+                            <h4>Add a group</h4>
+                            <TextField
+                                id="standard-size-small"
+                                label="Group title"
+                                variant="standard"
+                                size='small'
+                                value={groupInput}
+                                onChange={(e) => setGroupInput(e.target.value)}
                             />
-                    </form>
-                    <ul className='classes'>{classesList}</ul>
+                        </form>
+                        <ul className='groups'>{groupsList}</ul>
+                    </Grid>
+                    <Grid xs={12} sm={6} md>
+                        <form onSubmit={addClassHandler} className='add-form'>
+                            <h3>Classes</h3>
+                            <h4>Add a class</h4>
+                            <TextField
+                                id="standard-size-small"
+                                label="Class name"
+                                variant="standard"
+                                size='small'
+                                value={classInput}
+                                onChange={(e) => setClassInput(e.target.value)}
+                                />
+                        </form>
+                        <ul className='classes'>{classesList}</ul>
+                    </Grid>
                 </Grid>
-            </Grid>
-            </>
             )}
         </div>
     </Container>

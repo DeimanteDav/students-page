@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { useParams, redirect } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import './Students.css'
 import config from '../config'
 import Grades from '../components/Grades/Grades'
 import { styled } from 'styled-components'
 import Container from '../components/Container'
-import {checkRole} from '../functions'
 import StudentForm from '../components/Students/StudentForm'
 import AddStudent from '../components/Students/AddStudent'
 import StudentContext from '../store/student-context'
@@ -50,13 +49,14 @@ const Student = ({ loggedInStudentId, permissions }) => {
 
     const [gradeDeleting, setGradeDeleting] = useState(false)
     // const [addingGrade, setAddingGrade] = useState(false)
+
+    const redirect = useNavigate()
     
     useEffect(() => {
         axios.get(`${config.API_URL}/students/${studentId}?_expand=city&_expand=group&_embed=grades&_expand=school`)
             .then(response => setStudent(response.data))
       
     }, [studentId, loggedInStudentId, gradeDeleting, isEditing])
-console.log(student);
 
 
     useEffect(() => {
@@ -64,8 +64,6 @@ console.log(student);
             .then(res => setClasses(res.data))
     }, [])
 
-
-    
 
     const deleteStudentHandler = () => {
         axios.delete(`${config.API_URL}/students/${studentId}`)
@@ -89,16 +87,11 @@ console.log(student);
                 }
             })
     }
+    
 
     return (
     <Container>
-        <StudentContext.Provider value={{
-            student,
-            deleteStudentHandler,
-            setIsEditing        
-        }}>
-
-            <h2>Student info</h2>
+        <StudentContext.Provider value={{ student }}>
             {isEditing ? (
                 <AddStudent
                     edit 
@@ -107,7 +100,7 @@ console.log(student);
                     student={student}
                 />
             ) : (
-                <StudentForm onDelete={deleteStudentHandler} setIsEditing={setIsEditing} student={student} />
+                <StudentForm onDelete={deleteStudentHandler} setIsEditing={() => setIsEditing(true)} student={student} />
             )}
 
             <Grades permissions={permissions} classes={classes} setStudent={setStudent} loggedInStudentId={loggedInStudentId} studentId={studentId} />

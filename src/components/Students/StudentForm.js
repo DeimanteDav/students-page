@@ -2,7 +2,6 @@ import React from 'react'
 import { styled } from 'styled-components'
 import StudentInfo from './StudentInfo'
 import ButtonsGroup from '../Buttons/ButtonsGroup'
-import StudentsButtonsGroup from '../Buttons/StudentsButtonsGroup'
 
 
 const Form = styled.form`
@@ -29,11 +28,14 @@ const Form = styled.form`
     }
 `
 
-const StudentForm = () => {
+const StudentForm = ({onDelete, onEdit}) => {
   return (
     <Form className='student'>
         <StudentInfo />
-        <StudentsButtonsGroup/>
+        <ButtonsGroup
+            deleteClickHandler={onDelete}
+            editClickHandler={onEdit}
+        />
     </Form>
   )
 }
