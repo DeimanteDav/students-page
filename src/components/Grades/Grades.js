@@ -6,8 +6,8 @@ const Grades = ({permissions, classes, loggedInStudentId, studentId, setStudent}
     if (!permissions) {
         return ''
     } 
-console.log(permissions);
-  return (
+
+    return (
     <>
         {(permissions.view || (permissions.viewOwn && loggedInStudentId === studentId)) && (
             <div>

@@ -93,7 +93,7 @@ const Student = ({ loggedInStudentId, permissions }) => {
                     student={student}
                 />
             ) : (
-                <StudentForm onDelete={deleteStudentHandler} setIsEditing={() => setIsEditing(true)} student={student} />
+                <StudentForm onDelete={deleteStudentHandler} onEdit={() => setIsEditing(true)} student={student} />
             )}
 
             <Grades permissions={permissions} classes={classes} setStudent={setStudent} loggedInStudentId={loggedInStudentId} studentId={studentId} />

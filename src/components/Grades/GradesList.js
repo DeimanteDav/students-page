@@ -9,24 +9,26 @@ const GradesList = ({ classes }) => {
 
     useEffect(() => {
         let studentGrades = classes.map(oneClass => {
-            let classGrades = ctx.student.grades && ctx.student.grades.filter(grade => grade.classId == oneClass.id)
+            let classGrades = ctx.student.grades && ctx.student.grades.filter(grade => +grade.classId === +oneClass.id)
+
             return {oneClass, classGrades}
         })
         setRows(studentGrades)
-    }, [ctx.student])
+    }, [ctx.student, classes])
 
     let gradesCount = useRef(0)
 
     function maxGradesCount() {
         if (rows.classGrades) {
-            rows.map((row) => {
+            rows.forEach((row) => {
                 if (gradesCount.current < row.classGrades.length) {
                     gradesCount.current = row.classGrades.length
-            }
-        })
+                }
+            })
         }
     }
     maxGradesCount()
+    rows.forEach(row => console.log(row))
 
     return (
     <TableContainer component={Paper}>
@@ -38,7 +40,9 @@ const GradesList = ({ classes }) => {
                 </TableRow>
             </TableHead>
             <TableBody>
-                <GradesListItem rows={rows} />
+                {rows.map(row => (
+                    <GradesListItem key={row.oneClass.id} row={row} />
+                ))}
             </TableBody>
         </Table>
     </TableContainer>
