@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import config from '../../config'
-import Container from '../../components/Container'
+import Container from '../../components/General/Container'
 import StudentsList from '../../components/Students/StudentsList'
 
 const CityStudents = () => {

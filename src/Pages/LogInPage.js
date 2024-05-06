@@ -3,7 +3,7 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import config from '../config';
 import { Link, useNavigate } from 'react-router-dom';
-import Container from '../components/Container';
+import Container from '../components/General/Container';
 
 const LogInPage = () => {
     // localStorage.setItem('loggedIn', JSON.stringify(false))

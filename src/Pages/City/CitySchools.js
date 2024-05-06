@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import config from '../../config'
 import SchoolsList from '../../components/Schools/SchoolsList'
-import Container from '../../components/Container'
+import Container from '../../components/General/Container'
 
 const CitySchools = () => {
     let {cityId} = useParams()

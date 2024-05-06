@@ -10,11 +10,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Grid from '@mui/material/Unstable_Grid2'
-import Container from '../components/Container'
+import Container from '../../components/General/Container'
 import { Checkbox, FormControlLabel } from '@mui/material'
-import config from '../config'
-import CityForm from '../components/Cities/CityForm'
-import GroupsList from '../components/Groups/GroupsList'
+import config from '../../config'
+import CityForm from '../../components/Cities/CityForm'
+import GroupsList from '../../components/Groups/GroupsList'
 
 const Settings = () => {
     const [groups, setGroups] = useState([])

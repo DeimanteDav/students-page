@@ -1,24 +1,24 @@
 import './App.css';
-import { Routes, Route, NavLink, Link, useLocation, useNavigate } from 'react-router-dom';
-import StudentsPage from './Pages/StudentsPage';
-import Student from './Pages/Student';
-import Settings from './Pages/Settings';
-import Groups from './Pages/Groups';
-import Group from './Pages/Group';
-import Teachers from './Pages/Teachers';
-import Teacher from './Pages/Teacher';
+import { Routes, Route, NavLink, useNavigate } from 'react-router-dom';
+import StudentsPage from './Pages/Students/StudentsPage';
+import Student from './Pages/Students/Student';
+import Settings from './Pages/Settings/Settings';
+import Groups from './Pages/Groups/Groups';
+import Group from './Pages/Groups/Group';
+import Teachers from './Pages/Teachers/Teachers';
+import Teacher from './Pages/Teachers/Teacher';
 import StyleTestPage from './Pages/StyleTestPage';
-import { AppBar, Box, Button, IconButton, Tab, Tabs, Toolbar } from '@mui/material';
+import { AppBar, Box, IconButton, Tab, Tabs, Toolbar } from '@mui/material';
 import { useEffect, useState } from 'react';
 import SettingsIcon from '@mui/icons-material/Settings';
-import SchoolsPage from './Pages/School/SchoolsPage';
-import School from './Pages/School/School';
+import SchoolsPage from './Pages/Schools/SchoolsPage';
+import School from './Pages/Schools/School';
 import City from './Pages/City/City';
 import CitySchools from './Pages/City/CitySchools';
 import CityStudents from './Pages/City/CityStudents';
-import SchoolStudents from './Pages/School/SchoolStudents';
-import SchoolTeachers from './Pages/School/SchoolTeachers';
-import SchoolGroups from './Pages/School/SchoolGroups';
+import SchoolStudents from './Pages/Schools/SchoolStudents';
+import SchoolTeachers from './Pages/Schools/SchoolTeachers';
+import SchoolGroups from './Pages/Schools/SchoolGroups';
 import LogInPage from './Pages/LogInPage';
 import RegisterPage from './Pages/RegisterPage';
 import config from './config';
@@ -69,7 +69,7 @@ function App() {
   let redirect = useNavigate()
 
   return ( 
-    <div>
+    <>
       {isLoggedIn && (
         <Box sx={{ flexGrow: 1 }}>
           <AppBar>
@@ -123,10 +123,9 @@ function App() {
             <Route path='/register' element={<RegisterPage />} />
           </>
         )}
+        <Route path="*" element={null} />
       </Routes>
-    </div>
-
-    
+    </>
   );
 }
 

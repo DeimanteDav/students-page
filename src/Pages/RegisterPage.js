@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Container from '../components/Container'
+import Container from '../components/General/Container'
 import { Box, Button, Paper, Stack, TextField, Typography } from '@mui/material'
 import axios from 'axios'
 import config from '../config'

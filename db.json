@@ -26,7 +26,16 @@
     }
   ],
   "gradesGroup": [],
-  "grades": [],
+  "grades": [
+    {
+      "studentId": 1,
+      "classId": "1",
+      "date": "2024-05-06T13:35:01.920Z",
+      "value": 5,
+      "updatedDate": null,
+      "id": 1
+    }
+  ],
   "classes": [
     {
       "name": "Matematika",
@@ -65,7 +74,7 @@
       "image": "https://s1.15min.lt/static/cache/OTcweDU4MCw5OTh4NzEyLDYxNjIwOSxvcmlnaW5hbCwsaWQ9MjU4NzcwNSZkYXRlPTIwMTYlMkYxMSUyRjIyLDE2NTYxMDEyMjg=/sv-kristoforo-gimnazija-58342d63dbab5.jpg"
     },
     {
-      "name": "mokyyklaa",
+      "name": "mokyyklaaa",
       "cityId": 1,
       "id": 11,
       "image": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Svento_Kristoforo_vidurine_mokykla.JPG"
@@ -175,8 +184,8 @@
       "userRoleId": 1,
       "grades": {
         "delete": true,
-        "edit": false,
-        "add": false,
+        "edit": true,
+        "add": true,
         "view": true
       }
     },

@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import './Students.css'
-import config from '../config'
-import Grades from '../components/Grades/Grades'
+import config from '../../config'
+import Grades from '../../components/Grades/Grades'
 import { styled } from 'styled-components'
-import Container from '../components/Container'
-import StudentForm from '../components/Students/StudentForm'
-import AddStudent from '../components/Students/AddStudent'
-import StudentContext from '../store/student-context'
+import Container from '../../components/General/Container'
+import StudentForm from '../../components/Students/StudentForm'
+import AddStudent from '../../components/Students/AddStudent'
+import StudentContext from '../../store/student-context'
+import LoadingBar from '../../components/General/LoadingBar'
+import useFetchData from '../../hooks/useFetchData'
 
 
 const EditingForm = styled.form`
@@ -41,28 +43,17 @@ const EditingForm = styled.form`
 
 const Student = ({ loggedInStudentId, permissions }) => {
     let {studentId} = useParams()
-    const [student, setStudent] = useState({})
-
-    const [classes, setClasses] = useState([])
-
     const [isEditing, setIsEditing] = useState(false)
 
     const [gradeDeleting, setGradeDeleting] = useState(false)
     // const [addingGrade, setAddingGrade] = useState(false)
 
+
     const redirect = useNavigate()
-    
-    useEffect(() => {
-        axios.get(`${config.API_URL}/students/${studentId}?_expand=city&_expand=group&_embed=grades&_expand=school`)
-            .then(response => setStudent(response.data))
-      
-    }, [studentId, loggedInStudentId, gradeDeleting, isEditing])
 
+    const {data: student, setData: setStudent, loading: studentLoading} = useFetchData(`${config.API_URL}/students/${studentId}?_expand=city&_expand=group&_embed=grades&_expand=school`, 'get', [studentId, loggedInStudentId, gradeDeleting, isEditing])
 
-    useEffect(() => {
-        axios.get(`${config.API_URL}/classes`)
-            .then(res => setClasses(res.data))
-    }, [])
+    const {data: classes, loading: classesLoading} = useFetchData(`${config.API_URL}/classes`)
 
 
     const deleteStudentHandler = () => {
@@ -74,7 +65,6 @@ const Student = ({ loggedInStudentId, permissions }) => {
             })
     }
 
-   
 
     const deleteGradeHandler = (id, e) => {
         e.preventDefault()
@@ -87,9 +77,12 @@ const Student = ({ loggedInStudentId, permissions }) => {
                 }
             })
     }
-    
 
-    return (
+    if (studentLoading || classesLoading) {
+        return <LoadingBar />
+    }
+
+  return (
     <Container>
         <StudentContext.Provider value={{ student }}>
             {isEditing ? (

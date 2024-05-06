@@ -2,7 +2,7 @@ import { Autocomplete, Avatar, Box, Button, IconButton, Stack, TextField } from 
 import React, { useEffect, useState } from 'react'
 import config from '../../config'
 import axios from 'axios'
-import SnackbarAlert from '../SnackbarAlert'
+import SnackbarAlert from '../General/SnackbarAlert'
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditButtonsGroup from '../Buttons/EditButtonsGroup'
 import useFetchData from '../../hooks/useFetchData'

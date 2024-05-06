@@ -3,12 +3,13 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { Box, Button, FormControl, InputLabel, MenuItem, Select, Stack } from '@mui/material'
-import Container from '../components/Container'
-import AddGroups from '../components/Groups/AddGroups'
-import config from '../config'
-import StudentsList from '../components/Students/StudentsList'
-import GroupForm from '../components/Groups/GroupForm'
-import useFetchData from '../hooks/useFetchData'
+import Container from '../../components/General/Container'
+import AddGroups from '../../components/Groups/AddGroups'
+import config from '../../config'
+import StudentsList from '../../components/Students/StudentsList'
+import GroupForm from '../../components/Groups/GroupForm'
+import useFetchData from '../../hooks/useFetchData'
+import LoadingBar from '../../components/General/LoadingBar'
 
 
 const Group = () => {
@@ -27,7 +28,7 @@ const Group = () => {
     }, [])
 
 
-    let {data: group, error: groupError} = useFetchData(`${config.API_URL}/groups/${groupId}?_embed=students&_expand=teacher&_expand=school`, 'get', [groupId, addingStudent, isEditing])
+    let {data: group, error: groupError, loading} = useFetchData(`${config.API_URL}/groups/${groupId}?_embed=students&_expand=teacher&_expand=school`, 'get', [groupId, addingStudent, isEditing])
 
 
     useEffect(() => {
@@ -70,6 +71,11 @@ const Group = () => {
             return redirect('/groups')
           }
         })
+    }
+
+    
+    if (loading) {
+      return <LoadingBar />
     }
 
   return (

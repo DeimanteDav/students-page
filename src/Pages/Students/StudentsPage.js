@@ -1,25 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import './Students.css'
-import AddStudent from '../components/Students/AddStudent'
-import config from '../config'
-import StudentsList from '../components/Students/StudentsList'
-import Container from '../components/Container'
+import AddStudent from '../../components/Students/AddStudent'
+import config from '../../config'
+import StudentsList from '../../components/Students/StudentsList'
+import Container from '../../components/General/Container'
+import LoadingBar from '../../components/General/LoadingBar'
+import useFetchData from '../../hooks/useFetchData'
 
 const StudentsPage = () => {
-  const [students, setStudents] = useState([])
-
   const [search, setSearch] = useState('')
   const [foundStudents, setFoundStudents] = useState([])
 
   const [timer, setTimer] = useState(null)
 
-
-  useEffect(() => {
-    axios.get(`${config.API_URL}/students?_sort=id&_order=desc`)
-      .then(response => setStudents(response.data))
-  }, [])
-
+  let {data: students, error: setStudents, loading} = useFetchData(`${config.API_URL}/students?_sort=id&_order=desc`)
 
   function searchHandler(e) {
     setSearch(e.target.value)
@@ -37,6 +32,10 @@ const StudentsPage = () => {
           .catch((e) => console.log(e))
       }, 1000)
     )
+  }
+
+  if (loading) {
+    return <LoadingBar />
   }
 
   return (

@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import config from '../../config'
 import AddSchool from '../../components/Schools/AddSchool'
-import Container from '../../components/Container'
+import Container from '../../components/General/Container'
 import SchoolsList from '../../components/Schools/SchoolsList'
 
 const SchoolsPage = () => {

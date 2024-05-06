@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import styles from '../../Pages/Groups.module.scss'
+import styles from '../../Pages/Groups/Groups.module.scss'
 
 const GroupInfo = ({group}) => {
   return (

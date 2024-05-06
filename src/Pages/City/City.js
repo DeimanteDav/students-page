@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 import config from '../../config'
 import SchoolsList from '../../components/Schools/SchoolsList'
 import StudentsList from '../../components/Students/StudentsList'
-import Container from '../../components/Container'
+import Container from '../../components/General/Container'
 import { Typography } from '@mui/material'
 
 const City = () => {

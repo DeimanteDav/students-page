@@ -1,7 +1,7 @@
 import React from 'react'
 import GroupInfo from './GroupInfo'
 import ButtonsGroup from '../Buttons/ButtonsGroup'
-import styles from '../../Pages/Groups.module.scss'
+import styles from '../../Pages/Groups/Groups.module.scss'
 
 const GroupForm = ({group, deleteGroupHandler, setIsEditing}) => {
   return (

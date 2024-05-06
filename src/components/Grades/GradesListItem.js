@@ -16,8 +16,8 @@ const GradesListItem = ({rows}) => {
                     let date = new Date(grade.date)
                     let updatedDate = new Date(grade.updatedDate)
                     return (
-                        <Tooltip title={date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()} placement='top-end'>
-                            <TableCell key={grade.id} align="right">{grade.value}</TableCell>
+                        <Tooltip key={grade.id}  title={date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()} placement='top-end'>
+                            <TableCell align="right">{grade.value}</TableCell>
                         </Tooltip>
 
                     )

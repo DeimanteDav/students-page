@@ -1,16 +1,17 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import config from '../config.js'
-import Container from '../components/Container.js'
-import TeacherForm from '../components/Teachers/TeacherForm.js'
-import AddTeacher from '../components/Teachers/AddTeacher.js'
+import config from '../../config.js'
+import Container from '../../components/General/Container.js'
+import TeacherForm from '../../components/Teachers/TeacherForm.js'
+import AddTeacher from '../../components/Teachers/AddTeacher.js'
+import useFetchData from '../../hooks/useFetchData.js'
+import LoadingBar from '../../components/General/LoadingBar.js'
 
 
 
 const Teacher = () => {
   let {teacherId} = useParams()
-  const [teacher, setTeacher] = useState({})
 
   const [allClasses, setAllClasses] = useState([])
 
@@ -18,20 +19,11 @@ const Teacher = () => {
   const [classDeleting, setClassDeleting] = useState(false)
   const [addingClass, setAddingClass] = useState(false)
 
-  const [schoolsOptions, setSchoolsOptions] = useState([])
 
+  const {data: teacher, setData: setTeacher, loading} = useFetchData(`${config.API_URL}/teachers/${teacherId}?_embed=classes&_expand=school`, 'get', [teacherId, classDeleting, addingClass, isEditing])
   
-  useEffect(() => {
-    axios.get(`${config.API_URL}/teachers/${teacherId}?_embed=classes&_expand=school`)
-    .then(res => setTeacher(res.data))
-  }, [teacherId, classDeleting, addingClass, isEditing])
-  
-// padaryti
-  useEffect(() => {
-     axios.get(`${config.API_URL}/schools?_expand=city`)
-       .then(res => setSchoolsOptions(res.data))
-   }, [])
-  
+  const {data: schoolsOptions} = useFetchData(`${config.API_URL}/schools?_expand=city`)
+
   useEffect(() => {
     axios.get(`${config.API_URL}/classes`)
     .then(res => {
@@ -56,8 +48,11 @@ const Teacher = () => {
         }
       })
   }
-  
 
+  if (loading) {
+    return <LoadingBar />
+  }
+  
   return (
     <Container>
       {isEditing ? (

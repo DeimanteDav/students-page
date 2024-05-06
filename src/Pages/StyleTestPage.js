@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Container from '../components/Container';
+import Container from '../components/General/Container';
 import styled from 'styled-components';
 import styles from './StyleTestPage.module.scss'
 import UseRefTest from '../components/UseRefTest';
