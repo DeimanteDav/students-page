@@ -14,7 +14,7 @@ const StudentsPage = () => {
 
   const [timer, setTimer] = useState(null)
 
-  let {data: students, error: setStudents, loading} = useFetchData(`${config.API_URL}/students?_sort=id&_order=desc`)
+  let {data: students, setData: setStudents, loading} = useFetchData(`${config.API_URL}/students?_sort=id&_order=desc`)
 
   function searchHandler(e) {
     setSearch(e.target.value)

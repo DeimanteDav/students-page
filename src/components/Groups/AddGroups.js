@@ -70,8 +70,8 @@ const AddGroups = ({group, setAddingGroup, setIsEditing, add = false, edit = fal
             })
     }
 
-    console.log(teacher, teachersOptions);
-  return (
+
+    return (
     userRole === 'administrative' && (
         <Box
             component="form"

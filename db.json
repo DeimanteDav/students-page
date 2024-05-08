@@ -2,12 +2,24 @@
   "groups": [],
   "students": [
     {
-      "name": "Studentas",
-      "surname": "pavardenis",
-      "groupId": 1,
-      "cityId": 4,
-      "schoolId": 4,
-      "id": 1
+      "name": "studentas",
+      "surname": "pav",
+      "cityId": 1,
+      "schoolId": 15,
+      "groupId": "",
+      "code": null,
+      "id": 1,
+      "userId": 9
+    },
+    {
+      "name": "mokinys",
+      "surname": "pav",
+      "cityId": 1,
+      "schoolId": 12,
+      "groupId": "",
+      "code": null,
+      "id": 2,
+      "userId": 8
     }
   ],
   "cities": [
@@ -25,80 +37,7 @@
     }
   ],
   "gradesGroup": [],
-  "grades": [
-    {
-      "studentId": 1,
-      "classId": "1",
-      "date": "2024-05-06T13:35:01.920Z",
-      "value": 5,
-      "updatedDate": null,
-      "id": 1
-    },
-    {
-      "studentId": 1,
-      "classId": "1",
-      "date": "2024-05-06T13:38:58.882Z",
-      "value": 7,
-      "updatedDate": null,
-      "id": 2
-    },
-    {
-      "studentId": 1,
-      "classId": "1",
-      "date": "2024-05-06T13:40:37.761Z",
-      "value": 5,
-      "updatedDate": null,
-      "id": 3
-    },
-    {
-      "studentId": 1,
-      "classId": "1",
-      "date": "2024-05-06T13:40:41.956Z",
-      "value": 3,
-      "updatedDate": null,
-      "id": 4
-    },
-    {
-      "studentId": 1,
-      "classId": "1",
-      "date": "2024-05-06T13:40:53.148Z",
-      "value": 7,
-      "updatedDate": null,
-      "id": 5
-    },
-    {
-      "studentId": 1,
-      "classId": "1",
-      "date": "2024-05-06T13:40:58.739Z",
-      "value": 5,
-      "updatedDate": null,
-      "id": 6
-    },
-    {
-      "studentId": 1,
-      "classId": "1",
-      "date": "2024-05-06T13:41:03.750Z",
-      "value": 4,
-      "updatedDate": null,
-      "id": 7
-    },
-    {
-      "studentId": 1,
-      "classId": "1",
-      "date": "2024-05-06T13:41:59.907Z",
-      "value": 4,
-      "updatedDate": null,
-      "id": 8
-    },
-    {
-      "studentId": 1,
-      "classId": "1",
-      "date": "2024-05-06T13:46:35.604Z",
-      "value": 5,
-      "updatedDate": null,
-      "id": 9
-    }
-  ],
+  "grades": [],
   "classes": [
     {
       "name": "Matematika",
@@ -166,16 +105,6 @@
       "name": "mokyyklaa",
       "cityId": 3,
       "id": 16
-    },
-    {
-      "name": "mokykla nr 100",
-      "cityId": 1,
-      "id": 17
-    },
-    {
-      "name": "school nr 1000",
-      "cityId": 1,
-      "id": 18
     }
   ],
   "users": [
@@ -227,6 +156,20 @@
       "email": "marija@gmail.com",
       "userRoleId": 2,
       "id": 7
+    },
+    {
+      "username": "mokinys",
+      "password": "mokinys123",
+      "email": "mokinys@gmail.com",
+      "userRoleId": 2,
+      "id": 8
+    },
+    {
+      "username": "studentas pav",
+      "password": "studentas123",
+      "email": "studentas@gmail.com",
+      "userRoleId": 2,
+      "id": 9
     }
   ],
   "userRoles": [

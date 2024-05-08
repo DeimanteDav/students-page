@@ -13,7 +13,7 @@ const RegisterPage = () => {
   const [password, setPassword] = useState('')
 
   const [code, setCode] = useState('')
-  const [codeErr, setCodeErr] = useState('')
+  const [codeErr, setCodeErr] = useState(false)
   
   let redirect = useNavigate()
   const createUserHandler = (e) => {
@@ -42,7 +42,6 @@ const RegisterPage = () => {
     //   })
 
     
-// ASYNC AWAIT ir issikelti in funkcijas
     axios.get(`${config.API_URL}/students?code=${code}`)
       .then(response => {
         if (response.status === 200 && response.data.length > 0) {
@@ -71,10 +70,9 @@ const RegisterPage = () => {
                       setSelectedUser('')
                       setCode('')
                       setCodeErr('')
-                      return (
-                        window.location.reload(true),
-                        redirect('/')
-                      )
+
+                      window.location.reload(true)
+                      redirect('/')
                     }
                   })
               }

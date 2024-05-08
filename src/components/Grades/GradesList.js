@@ -28,7 +28,6 @@ const GradesList = ({ classes }) => {
         }
     }
     maxGradesCount()
-    rows.forEach(row => console.log(row))
 
     return (
     <TableContainer component={Paper}>

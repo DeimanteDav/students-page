@@ -8,7 +8,7 @@ import Group from './Pages/Groups/Group';
 import Teachers from './Pages/Teachers/Teachers';
 import Teacher from './Pages/Teachers/Teacher';
 import StyleTestPage from './Pages/StyleTestPage';
-import { AppBar, Box, IconButton, Tab, Tabs, Toolbar } from '@mui/material';
+import { AppBar, Box, Button, IconButton, Tab, Tabs, Toolbar } from '@mui/material';
 import { useEffect, useState } from 'react';
 import SettingsIcon from '@mui/icons-material/Settings';
 import SchoolsPage from './Pages/Schools/SchoolsPage';
@@ -24,6 +24,7 @@ import RegisterPage from './Pages/RegisterPage';
 import config from './config';
 import axios from 'axios';
 import LocalStorage from './Pages/LocalStorage';
+import Page404 from './Pages/Page404';
 
 function App() {
   const [value, setValue] = useState(0)
@@ -55,6 +56,7 @@ function App() {
 
   }, [loggedInUserId, userRole])
 
+  const redirect = useNavigate()
 
   const handleLogOut = () => {
     localStorage.setItem('loggedIn', JSON.stringify(false))
@@ -66,7 +68,6 @@ function App() {
     setValue(newValue);
   };
 
-  let redirect = useNavigate()
 
   return ( 
     <>
@@ -88,9 +89,7 @@ function App() {
                 <Tab label='schools' component={NavLink} to='schools'/>
               </Tabs>
 
-              <Tabs textColor='inherit' value={0}>
-                <Tab lable='log-out' onClick={handleLogOut}/>
-              </Tabs>
+              <Button color="inherit" onClick={handleLogOut}>Log-Out</Button>
             </Toolbar>
           </AppBar>
         </Box>
@@ -123,7 +122,7 @@ function App() {
             <Route path='/register' element={<RegisterPage />} />
           </>
         )}
-        <Route path="*" element={null} />
+        <Route path="*" element={<Page404/>} />
       </Routes>
     </>
   );
