@@ -1,5 +1,5 @@
 import './App.css';
-import { Routes, Route, NavLink, useNavigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import StudentsPage from './Pages/Students/StudentsPage';
 import Student from './Pages/Students/Student';
 import Settings from './Pages/Settings/Settings';
@@ -8,9 +8,7 @@ import Group from './Pages/Groups/Group';
 import Teachers from './Pages/Teachers/Teachers';
 import Teacher from './Pages/Teachers/Teacher';
 import StyleTestPage from './Pages/StyleTestPage';
-import { AppBar, Box, Button, IconButton, Tab, Tabs, Toolbar } from '@mui/material';
 import { useEffect, useState } from 'react';
-import SettingsIcon from '@mui/icons-material/Settings';
 import SchoolsPage from './Pages/Schools/SchoolsPage';
 import School from './Pages/Schools/School';
 import City from './Pages/City/City';
@@ -25,9 +23,9 @@ import config from './config';
 import axios from 'axios';
 import LocalStorage from './Pages/LocalStorage';
 import Page404 from './Pages/Page404';
+import Navigation from './components/Navigation';
 
 function App() {
-  const [value, setValue] = useState(0)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [userRole, setUserRole] = useState('')
   const [loggedInUserId, setLoggedInUserId] = useState('')
@@ -56,43 +54,11 @@ function App() {
 
   }, [loggedInUserId, userRole])
 
-  const redirect = useNavigate()
-
-  const handleLogOut = () => {
-    localStorage.setItem('loggedIn', JSON.stringify(false))
-    redirect('/')
-    window.location.reload(true)
-  }
-
-  const handleTabs = (_, newValue) => {
-    setValue(newValue);
-  };
-
 
   return ( 
     <>
       {isLoggedIn && (
-        <Box sx={{ flexGrow: 1 }}>
-          <AppBar>
-            <Toolbar sx={{ justifyContent: 'space-between' }}>
-              <Tabs sx={{ mr: 4 }} value={value} onChange={handleTabs} textColor='inherit'>
-                {userRole === 'administrative' && (
-                  <Tab label={
-                    <IconButton color='inherit' aria-label='settings'>
-                      <SettingsIcon/>
-                    </IconButton>
-                  } component={NavLink} to='settings'/>
-                )}
-                <Tab label='students' component={NavLink} to='/'/>
-                <Tab label='groups' component={NavLink} to='groups'/>
-                <Tab label='teachers' component={NavLink} to='teachers'/>
-                <Tab label='schools' component={NavLink} to='schools'/>
-              </Tabs>
-
-              <Button color="inherit" onClick={handleLogOut}>Log-Out</Button>
-            </Toolbar>
-          </AppBar>
-        </Box>
+        <Navigation role={userRole} userId={loggedInUserId} />
       )}
 
       <Routes>
