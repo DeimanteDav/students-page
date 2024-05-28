@@ -1,14 +1,5 @@
 # Students Page
-[Live Preview]()🚀
-
-
 This project is a web application built using [ReactJS](https://react.dev/) and [Material-UI](https://mui.com/) framework. It provides a comprehensive system for managing student, teacher, group, and school information.
-
-## Table of Contents
-
-1. [Features](#features)
-2. [Usage](#usage)
-3. [Installation](#installation)
 
 ## Features
 
@@ -28,8 +19,6 @@ This project is a web application built using [ReactJS](https://react.dev/) and 
 - **Settings Page**
   - Create and manage cities and groups.
 
-## Usage
-
 
 ## Installation
 
@@ -43,7 +32,9 @@ To install dependencies and start the development server, follow these steps:
 ``npm install``
     or
 ``yarn install``
-4. Start the development server:
+4. Start JSON server:
+``json-server --watch db.json`` 
+5. Start the development server:
 ``npm start``
     or
 ``yarn start``

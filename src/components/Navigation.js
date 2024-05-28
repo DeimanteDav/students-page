@@ -20,7 +20,8 @@ export default function Navigation({role, userId}) {
     const matches = useMediaQuery('(min-width:700px)');
 
     const redirect = useNavigate()
-    const {data: userData} = useFetchData(role === 'user' ? `${config.API_URL}/students?userId=${userId}` : `${config.API_URL}/teachers?userId=${userId}`, 'get', [role, userId])
+    const {data: userData} = useFetchData(`${config.API_URL}/users?id=${userId}`, 'get', [role, userId])
+
     
     const handleLogOut = () => {
         localStorage.setItem('loggedIn', JSON.stringify(false))
@@ -46,7 +47,7 @@ export default function Navigation({role, userId}) {
     if (role === 'administrative') {
         pages.unshift({ text: null, link:'/', icon: <SettingsIcon /> })
     }
-    
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar>
@@ -103,13 +104,13 @@ export default function Navigation({role, userId}) {
                     )}
 
                     <Stack direction="row" spacing={2} alignItems="center">
-                        {role !== 'user' ? <AccountCircle /> : <AdminPanelSettingsIcon />}
+                        {role === 'user' ? <AccountCircle /> : <AdminPanelSettingsIcon />}
                         <Stack>
                             <Typography
                                 component='p'
                                 variant="body1"
                             >
-                                {userData[0] && userData[0].name}
+                                {userData[0] && userData[0].username}
                             </Typography>
                         </Stack>
                         <Button color="inherit" onClick={handleLogOut}>Log-Out</Button>

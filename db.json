@@ -37,7 +37,16 @@
     }
   ],
   "gradesGroup": [],
-  "grades": [],
+  "grades": [
+    {
+      "studentId": 2,
+      "classId": "1",
+      "date": "2024-05-13T14:31:34.292Z",
+      "value": 9,
+      "updatedDate": null,
+      "id": 1
+    }
+  ],
   "classes": [
     {
       "name": "Matematika",
